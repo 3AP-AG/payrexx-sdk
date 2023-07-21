@@ -6,6 +6,10 @@
     "email": "info@3ap.ch",
     "name": "3AP"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3AP-AG/payrexx-sdk"
+  },
   "keywords": [
     "PAYREXX",
     "SDK",
