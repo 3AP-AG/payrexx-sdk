@@ -6,7 +6,7 @@
 
 ## 🚀 Issue Reference
 
-fixes <https://3apjira.atlassian.net/browse/DEVCO->??
+fixes https://3apjira.atlassian.net/browse/DEVCO-??
 
 ## 🛂 Checks
 
