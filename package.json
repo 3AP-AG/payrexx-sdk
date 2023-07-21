@@ -27,9 +27,9 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc && vite build",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "format:check": "eslint ./src && prettier --check ./src",
-    "format:fix": "eslint --fix ./src && prettier --write ./src"
+    "format": "prettier --write \"lib/**/*.ts\"",
+    "format:check": "eslint ./lib && prettier --check ./lib",
+    "format:fix": "eslint --fix ./lib && prettier --write ./lib"
   },
   "devDependencies": {
     "@types/node": "^20.4.2",
