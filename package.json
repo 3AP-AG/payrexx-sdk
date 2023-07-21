@@ -1,0 +1,45 @@
+{
+  "name": "payrexx-sdk",
+  "description": "Payrexx SDK for NodeJS",
+  "license": "MIT",
+  "author": {
+    "email": "info@3ap.ch",
+    "name": "3AP"
+  },
+  "keywords": [
+    "PAYREXX",
+    "SDK",
+    "API"
+  ],
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/payrexx-sdk.umd.cjs",
+  "module": "./dist/payrexx-sdk.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/payrexx-sdk.js",
+      "require": "./dist/payrexx-sdk.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && tsc && vite build",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "eslint ./src && prettier --check ./src",
+    "format:fix": "eslint --fix ./src && prettier --write ./src"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.0",
+    "vite-plugin-dts": "^3.3.1"
+  }
+}
