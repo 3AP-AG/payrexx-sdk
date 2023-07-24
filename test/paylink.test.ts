@@ -1,6 +1,6 @@
-import { PayrexxClient } from '..';
+import { PayrexxClient } from '../lib';
 import { test } from 'vitest';
-import { PaylinkRequest } from '../api/v1/types/paylink';
+import { PaylinkRequest } from '../lib/api/v1/types/paylink';
 // THESE TEST ARE ONLY TO BE EXECUTED LOCALLY
 
 test.skip('test paylink get', async () => {
