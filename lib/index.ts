@@ -1,5 +1,6 @@
-import { Client } from "./api";
-import { Transaction } from "./api";
+import { PayrexxClient } from './api/client';
+import { Transaction } from './api/v1/types/transaction';
+import { PaylinkRequest, PaylinkResponse } from './api/v1/types/paylink';
 
-export { Client };
-export type { Transaction };
+export { PayrexxClient };
+export type { Transaction, PaylinkRequest, PaylinkResponse };

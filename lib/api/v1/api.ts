@@ -1,4 +1,4 @@
-import { PaylinkService } from "./service/paylink-service";
+import { PaylinkService } from './service/paylink-service';
 
 export default class Api {
   public readonly paylink: PaylinkService;
