@@ -1,5 +1,5 @@
-import { Client } from "./api";
-import { Transaction } from "./api";
+import { PayrexxClient } from "./api/client";
+import { Transaction } from "./api/v1/model/transaction";
 
-export { Client };
+export { PayrexxClient };
 export type { Transaction };

@@ -1,4 +1,4 @@
-import { IPaylinkService } from "../../interface";
+import { IPaylinkService } from "../../interface/paylink-service";
 
 export class PaylinkService implements IPaylinkService {
   private readonly instance: string;
