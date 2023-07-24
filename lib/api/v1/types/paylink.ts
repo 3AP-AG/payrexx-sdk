@@ -20,7 +20,13 @@ interface PaylinkData {
   amount: number;
   vatRate: number;
   currency: string;
+  sku: string;
   createdAt: number;
+  subscriptionState: boolean;
+  subscriptionInterval: string;
+  subscriptionPeriod: string;
+  subscriptionPeriodMinAmount: string;
+  subscriptionCancellationInterval: string;
 }
 
 const fields = [
@@ -37,13 +43,18 @@ const fields = [
   'date_of_birth',
   'terms',
   'privacy_policy',
-  'header', // custom field
+  'custom_field_1',
+  'custom_field_2',
+  'custom_field_3',
 ] as const;
 type FieldKey = (typeof fields)[number];
 
 type Field = {
   active: boolean;
   mandatory: boolean;
+  /**
+   * Only used for custom_field_1, custom_field_2 and custom_field_3
+   */
   names?: {
     de: string;
     en: string;
