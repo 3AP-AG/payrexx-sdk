@@ -14,6 +14,7 @@ const transactionStatus = [
 export type TransactionStatus = (typeof transactionStatus)[number];
 
 // This object is coming from payrexx: https://developers.payrexx.com/docs/transaction
+// TODO: Add remaining fields
 interface Transaction {
   id: number;
   uuid: number | string;

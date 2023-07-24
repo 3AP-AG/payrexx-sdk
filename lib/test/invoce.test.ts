@@ -12,16 +12,16 @@ test.skip('test paylink get', async () => {
 test.skip('test paylink create', async () => {
   const client = new PayrexxClient('3ap-test', 'SECRET');
 
-  const params = {
+  const params: PaylinkRequest = {
     vatRate: 7.7,
     currency: 'CHF',
     amount: 1075,
     description: 'test',
-    title: ['Versement à Foundera AG', 'Zahlung an Foundera AG'],
-    purpose: ['Multiple cities GmbH', 'Multiple cities GmbH'],
+    title: ['TEST FR', 'TEST DE'],
+    purpose: ['TEST FR', 'TEST DE'],
     referenceId: '7500000061',
     expirationDate: '2023-08-10',
-  } as PaylinkRequest;
+  };
   const result = await client.apiV1.paylink.create(params);
   console.log('RESULT: ', result);
 });

@@ -52,19 +52,111 @@ type Field = {
   };
 };
 
+/**
+ * Interface for paylink request.
+ * For more information visit: https://developers.payrexx.com/reference/create-a-paylink
+ */
 interface PaylinkRequest {
+  /**
+   * This is the page title which will be shown on the payment page.
+   * Multi language support for FR and DE e.g. ['TITLE FR', 'TITLE DE']
+   */
   title: string[];
+  /**
+   * This is a description which will be shown on the payment page.
+   */
   description: string;
+  /**
+   * An internal reference id used by your system.
+   */
   referenceId: string;
+  /**
+   * The purpose of the payment.
+   * Multi language support for FR and DE e.g. ['PURPOSE FR', 'PURPOSE DE']
+   */
   purpose: string[];
+  /**
+   * The amount of the payment in cents.
+   */
   amount: number;
+  /**
+   * The currency of the payment.
+   */
   currency: string;
+  /**
+   * VAT rate percentage
+   */
   vatRate?: number;
-  expirationDate?: string;
-  ApiSignature?: string;
+  /**
+   * The psp which should be used for the payment. (Can be an array of integers.)
+   */
+  psp?: string | number[];
+  /**
+   * List of payment mean names to display
+   */
   pm?: string[];
+  /**
+   * Product stock keeping unit
+   */
+  sku?: string;
+  /**
+   * Whether charge payment manually at a later date (type authorization).
+   */
+  preAuthorization?: boolean;
+  /**
+   * Whether charge payment manually at a later date (type reservation).
+   */
+  reservation?: boolean;
+  /**
+   * This is an internal name of the payment page. This name will be displayed to the administrator only.
+   */
+  name?: string;
+  /**
+   * The contact data fields which should be displayed
+   */
   fields?: string[];
+  /**
+   * Hide the whole contact fields section on invoice page
+   */
   hideFields?: boolean;
+  /**
+   * Only available for Concardis PSP and if the custom ORDERID option is activated in PSP settings in Payrexx administration.
+   * This ORDERID will be transferred to the Payengine.
+   */
+  concardisOrderId?: string;
+  /**
+   * Custom pay button text.
+   */
+  buttonText?: string;
+  /**
+   * Expiration date for link. Date format: yyyy-MM-dd
+   */
+  expirationDate?: string;
+  /**
+   * URL to redirect to after successful payment.
+   */
+  successRedirectUrl?: string;
+  /**
+   * URL to redirect to after failed payment.
+   */
+  failedRedirectUrl?: string;
+  /**
+   * Defines whether the payment should be handled as subscription.
+   */
+  subscriptionState?: boolean;
+  /**
+   * Duration of the subscription
+   */
+  subscriptionInterval?: string;
+  /**
+   * Defines the period, in which a subscription can be canceled.
+   */
+  subscriptionCancellationInterval?: string;
+  /**
+   * Generated API signature based on params and API secret.
+   * Do NOT provide this value manually!
+   */
+  ApiSignature?: string;
 }
 
 export type { PaylinkRequest, PaylinkResponse };
