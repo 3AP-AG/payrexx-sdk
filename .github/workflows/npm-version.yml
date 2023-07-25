@@ -8,7 +8,6 @@ on:
 jobs:
   publish:
     name: Increase version in package.json
-    if: ${{ !contains(github.event.head_commit.message, 'NPM_VERSION_PATCH') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,7 +26,7 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "Github Action"
       - name: NPM version patch
-        run: npm version patch -m "NPM_VERSION_PATCH"
+        run: npm version patch -m "[skip ci]"
       - name: Push changes to Github
         uses: ad-m/github-push-action@master
         with:
