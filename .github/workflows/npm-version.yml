@@ -1,0 +1,35 @@
+name: NPM version increase
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  publish:
+    name: Increase version in package.json
+    if: ${{ !contains(github.event.head_commit.message, 'NPM_VERSION_PATCH') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          token: ${{ secrets.CI3AP_GH_TOKEN }}
+      - name: Node setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Setup git config
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "Github Action"
+      - name: NPM version patch
+        run: npm version patch -m "NPM_VERSION_PATCH"
+      - name: Push changes to Github
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'main'
