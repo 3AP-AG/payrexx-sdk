@@ -1,4 +1,4 @@
-name: Verify format
+name: Verify format and build
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    name: Verify format
+    name: Verify format and build
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -17,3 +17,5 @@ jobs:
         run: npm ci
       - name: Check format
         run: npm run format:check
+      - name: Check build
+        run: npm run build
