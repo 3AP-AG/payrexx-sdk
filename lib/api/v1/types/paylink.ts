@@ -13,7 +13,7 @@ interface PaylinkData {
   reservation: number;
   name: string;
   api: boolean;
-  fields: Record<FieldKey, Field>;
+  fields: Record<FieldKey, Field | NamedField>;
   psp: string | number[];
   pm: string[];
   purpose: string;
@@ -52,16 +52,19 @@ type FieldKey = (typeof fields)[number];
 type Field = {
   active: boolean;
   mandatory: boolean;
-  /**
-   * Only used for custom_field_1, custom_field_2 and custom_field_3
-   */
+};
+
+/**
+ * Only appliable to custom_field_1, custom_field_2, custom_field_3
+ */
+type NamedField = {
   names?: {
     de: string;
     en: string;
     fr: string;
     it: string;
   };
-};
+} & Field;
 
 /**
  * Interface for paylink request.
