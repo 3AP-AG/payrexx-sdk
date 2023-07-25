@@ -14,6 +14,7 @@ jobs:
         with:
           fetch-depth: '0'
           token: ${{ secrets.CI3AP_GH_TOKEN }}
+          ref: ${{ github.event.release.tag_name }}
       - name: Node setup
         uses: actions/setup-node@v3
         with:
