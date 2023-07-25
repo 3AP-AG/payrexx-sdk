@@ -5,7 +5,7 @@ import { PaylinkRequest } from '../lib/api/v1/types/paylink';
 
 test.skip('test paylink get', async () => {
   const client = new PayrexxClient('3ap-test', 'SECRET');
-  const result = await client.apiV1.paylink.retrieve(10755889);
+  const result = await client.api.paylink.retrieve(10755889);
   console.log('RESULT: ', result);
 });
 
@@ -22,6 +22,6 @@ test.skip('test paylink create', async () => {
     referenceId: '7500000061',
     expirationDate: '2023-08-10',
   };
-  const result = await client.apiV1.paylink.create(params);
+  const result = await client.api.paylink.create(params);
   console.log('RESULT: ', result);
 });

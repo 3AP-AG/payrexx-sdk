@@ -1,0 +1,13 @@
+name: Increase NPM package.json version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  increase-version:
+    name: NPM version patch
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm version patch

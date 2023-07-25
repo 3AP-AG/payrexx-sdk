@@ -22,7 +22,7 @@ Start first by creating the Payrexx client. You will need to provide your **Payr
 Retrieve a paylink with `id`
 
 ```ts
-    await client.apiV1.paylink.retrieve(id);
+    await client.api.paylink.retrieve(id);
 ```
 
 #### DELETE
@@ -32,7 +32,7 @@ Retrieve a paylink with `id`
 Remove a paylink with `id`
 
 ```ts
-    await client.apiV1.paylink.remove(id);
+    await client.api.paylink.remove(id);
 ```
 
 #### POST
@@ -43,7 +43,7 @@ Create a paylink
 
 ```ts
     const params: PaylinkRequest =  {};
-    await client.apiV1.paylink.create(params);
+    await client.api.paylink.create(params);
 ```
 
 ### Webhook
