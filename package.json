@@ -15,7 +15,7 @@
     "SDK",
     "API"
   ],
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "main": "./dist/payrexx-sdk.umd.cjs",
   "module": "./dist/payrexx-sdk.js",
