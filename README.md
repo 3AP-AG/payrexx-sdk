@@ -7,7 +7,13 @@ Other feature will come as the library continues to be developed.
 
 ## How to use
 
-Start first by creating the Payrexx client. You will need to provide your **Payrexx** instance and API secret.
+Install library by runninng command
+
+```shell
+    npm i payrexx-sdk
+```
+
+Start by creating the Payrexx client. You will need to provide your **Payrexx** instance and API secret.
 
 ```ts
     const client = new PayrexxClient('PAYREXX_INSTANCE', 'API_SECRET')
