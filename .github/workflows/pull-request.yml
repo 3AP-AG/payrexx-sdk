@@ -1,4 +1,4 @@
-name: Verify format and lint issues
+name: Verify format
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    name: Verify
+    name: Verify format
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
