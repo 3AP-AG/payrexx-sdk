@@ -12,3 +12,4 @@ fixes https://3apjira.atlassian.net/browse/DEVCO-??
 
 - [ ] This PR follows the coding guidelines of the project
 - [ ] This PR fulfills the acceptance criteria defined on the issue
+- [ ] This PR has been locally tested
