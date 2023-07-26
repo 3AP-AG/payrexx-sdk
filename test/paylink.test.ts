@@ -1,12 +1,13 @@
 import { PayrexxClient } from '../lib';
-import { test } from 'vitest';
+import { expect, test } from 'vitest';
 import { PaylinkRequest } from '../lib/api/v1/types/paylink';
 // THESE TEST ARE ONLY TO BE EXECUTED LOCALLY
 
 test.skip('test paylink get', async () => {
   const client = new PayrexxClient('3ap-test', 'SECRET');
-  const result = await client.api.paylink.retrieve(10755889);
-  console.log('RESULT: ', result);
+  const result = await client.api.paylink.retrieve(10784762);
+
+  expect(result.status).toEqual('success');
 });
 
 test.skip('test paylink create', async () => {
@@ -23,5 +24,16 @@ test.skip('test paylink create', async () => {
     expirationDate: '2023-08-10',
   };
   const result = await client.api.paylink.create(params);
-  console.log('RESULT: ', result);
+
+  console.log('RESULT TEST: ', result);
+  expect(result.status).toEqual('success');
+});
+
+test.skip('test paylink delete', async () => {
+  const client = new PayrexxClient('3ap-test', 'SECRET');
+
+  const result = await client.api.paylink.remove(10784762);
+
+  console.log('result', result);
+  expect(result.status).toEqual('success');
 });

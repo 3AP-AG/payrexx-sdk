@@ -1,6 +1,7 @@
 interface PaylinkResponse {
   status: string;
   data: Partial<PaylinkData>[];
+  message?: string;
 }
 
 interface PaylinkData {
@@ -13,7 +14,7 @@ interface PaylinkData {
   reservation: number;
   name: string;
   api: boolean;
-  fields: Record<FieldKey, Field | NamedField>;
+  fields: FieldRecord;
   psp: string | number[];
   pm: string[];
   purpose: string;
@@ -30,6 +31,7 @@ interface PaylinkData {
 }
 
 const fields = [
+  'header',
   'title',
   'forename',
   'surname',
@@ -52,19 +54,15 @@ type FieldKey = (typeof fields)[number];
 type Field = {
   active: boolean;
   mandatory: boolean;
-};
-
-/**
- * Only appliable to custom_field_1, custom_field_2, custom_field_3
- */
-type NamedField = {
   names?: {
     de: string;
     en: string;
     fr: string;
     it: string;
   };
-} & Field;
+};
+
+type FieldRecord = Partial<Record<FieldKey, Field>>;
 
 /**
  * Interface for paylink request.
