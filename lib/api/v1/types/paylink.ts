@@ -80,7 +80,7 @@ interface PaylinkRequest {
    * This is the page title which will be shown on the payment page.
    * Multi language support for FR and DE e.g. ['TITLE FR', 'TITLE DE']
    */
-  title: string[];
+  title: string | string[];
   /**
    * This is a description which will be shown on the payment page.
    */
@@ -93,7 +93,7 @@ interface PaylinkRequest {
    * The purpose of the payment.
    * Multi language support for FR and DE e.g. ['PURPOSE FR', 'PURPOSE DE']
    */
-  purpose: string[];
+  purpose: string | string[];
   /**
    * The amount of the payment in cents.
    */
