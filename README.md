@@ -5,9 +5,15 @@
 The library supports only *Paylink* feature from the **Payrexx API** at the moment.
 Other feature will come as the library continues to be developed.
 
+Visit the [Payrexx](https://payrexx.com/) for more information.
+
+## Disclaimer
+
+This library is unofficial and is developed independently from the Payrexx payment provider.
+
 ## How to use
 
-Install library by runninng command
+Install library by running command
 
 ```shell
     npm i payrexx-sdk
