@@ -16,13 +16,13 @@ This library is unofficial and is developed independently from the Payrexx payme
 Install library by running command
 
 ```shell
-    npm i payrexx-sdk
+npm i payrexx-sdk
 ```
 
 Start by creating the Payrexx client. You will need to provide your **Payrexx** instance and API secret.
 
 ```ts
-    const client = new PayrexxClient('PAYREXX_INSTANCE', 'API_SECRET')
+const client = new PayrexxClient('PAYREXX_INSTANCE', 'API_SECRET')
 ```
 
 ### Paylink
@@ -34,7 +34,7 @@ Start by creating the Payrexx client. You will need to provide your **Payrexx** 
 Retrieve a paylink with `id`
 
 ```ts
-    await client.api.paylink.retrieve(id);
+await client.api.paylink.retrieve(id);
 ```
 
 #### DELETE
@@ -44,7 +44,7 @@ Retrieve a paylink with `id`
 Remove a paylink with `id`
 
 ```ts
-    await client.api.paylink.remove(id);
+await client.api.paylink.remove(id);
 ```
 
 #### POST
@@ -54,8 +54,8 @@ Remove a paylink with `id`
 Create a paylink
 
 ```ts
-    const params: PaylinkRequest =  {};
-    await client.api.paylink.create(params);
+const params: PaylinkRequest =  {};
+await client.api.paylink.create(params);
 ```
 
 ### Webhook
