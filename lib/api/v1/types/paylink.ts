@@ -6,22 +6,29 @@ interface PaylinkResponse {
 
 interface PaylinkData {
   id: number;
+  status: string;
   hash: string;
   referenceId: string;
   link: string;
   invoices: [];
+  concardisOrderId: string;
+  expirationDate: string;
   preAuthorization: number;
   reservation: number;
   name: string;
+  title: string;
+  description: string;
+  buttonText: string;
   api: boolean;
   fields: FieldRecord;
   psp: string | number[];
   pm: string[];
-  purpose: string;
+  purpose: any;
   amount: number;
   vatRate: number;
   currency: string;
   sku: string;
+  applicationFee: number;
   createdAt: number;
   subscriptionState: boolean;
   subscriptionInterval: string;
