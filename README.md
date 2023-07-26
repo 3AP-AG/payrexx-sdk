@@ -3,7 +3,7 @@
 **Payrexx SDK** for NodeJS.
 
 The library supports only *Paylink* feature from the **Payrexx API** at the moment.
-Other feature will come as the library continues to be developed.
+Other functionality e.g. *Gateway*, *Subscription* will come as the library continues to be developed.
 
 Visit the [Payrexx](https://payrexx.com/) for more information.
 
