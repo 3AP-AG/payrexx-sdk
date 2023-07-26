@@ -50,7 +50,7 @@ interface GatewayRequest {
   /**
    * List of payment mean names to display
    */
-  pm: string[];
+  pm?: string[];
   /**
    * Whether charge payment manually at a later date (type authorization)
    */
@@ -71,7 +71,7 @@ interface GatewayRequest {
   /**
    * The contact data fields which should be stored along with payment
    */
-  fields: any;
+  fields?: any;
   /**
    * Skip result page and directly redirect to success or failed URL
    */
