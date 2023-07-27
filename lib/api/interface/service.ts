@@ -17,7 +17,10 @@ export abstract class Service<T, K extends Response> {
 
   handleResponse(result: K) {
     if (result.status === 'error') {
-      throw new Error(result.message);
+      throw new Error(
+        result.message ||
+          'Something went wrong with the API call! \n Error message from the Payrexx is unavailable',
+      );
     } else {
       return result;
     }
