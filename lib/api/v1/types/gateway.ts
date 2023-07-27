@@ -12,10 +12,12 @@ interface GatewayData {
   link: string;
   invoices: any[];
   preAuthorization: boolean;
+  reservation: number;
   fields: FieldRecord;
   psp: any[];
   pm: any[];
   amount: number;
+  currency: string;
   vatRate: string;
   sku: string;
   aplicationFee: number;
