@@ -2,6 +2,8 @@ import { expect, test } from 'vitest';
 import { PayrexxClient } from '../lib';
 import { GatewayRequest } from '../lib/api/v1/types/gateway';
 
+// THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
+
 test.skip('test gateway get', async () => {
   const client = new PayrexxClient('INSTANCE', 'SECRET');
   const result = await client.api.gateway.retrieve(1111111);
