@@ -21,8 +21,8 @@ interface PaylinkData {
   buttonText: string;
   api: boolean;
   fields: FieldRecord;
-  psp: string | number[];
-  pm: string[];
+  psp: number;
+  pm: any[];
   purpose: any;
   amount: number;
   vatRate: number;

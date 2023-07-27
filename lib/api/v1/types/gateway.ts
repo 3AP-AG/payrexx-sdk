@@ -1,8 +1,57 @@
 interface GatewayResponse {
   status: string;
-  data: [];
+  data: Partial<GatewayData>[];
   message: string;
 }
+
+interface GatewayData {
+  id: number;
+  status: string;
+  hash: string;
+  referenceId: string;
+  link: string;
+  invoices: any[];
+  preAuthorization: boolean;
+  fields: FieldRecord;
+  psp: any[];
+  pm: any[];
+  amount: number;
+  vatRate: string;
+  sku: string;
+  aplicationFee: number;
+  createdAt: number;
+}
+
+const fields = [
+  'title',
+  'forename',
+  'surname',
+  'company',
+  'street',
+  'postcode',
+  'place',
+  'country',
+  'phone',
+  'email',
+  'date_of_birth',
+  'terms',
+  'privacy_policy',
+  'text',
+] as const;
+type FieldKey = (typeof fields)[number];
+
+type Field = {
+  active: boolean;
+  mandatory: boolean;
+  names?: {
+    de: string;
+    en: string;
+    fr: string;
+    it: string;
+  };
+};
+
+type FieldRecord = Partial<Record<FieldKey, Field>>;
 
 interface GatewayRequest {
   /**
