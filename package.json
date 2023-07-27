@@ -19,7 +19,7 @@
   "type": "module",
   "main": "./dist/payrexx-sdk.umd.cjs",
   "module": "./dist/payrexx-sdk.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/payrexx-sdk.js",
