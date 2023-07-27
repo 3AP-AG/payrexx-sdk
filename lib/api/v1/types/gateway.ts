@@ -1,7 +1,7 @@
-interface GatewayResponse {
-  status: string;
+import { Response } from '../../interface/response';
+
+interface GatewayResponse extends Response {
   data: Partial<GatewayData>[];
-  message?: string;
 }
 
 interface GatewayData {

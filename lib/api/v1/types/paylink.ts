@@ -1,7 +1,7 @@
-interface PaylinkResponse {
-  status: string;
+import { Response } from '../../interface/response';
+
+interface PaylinkResponse extends Response {
   data: Partial<PaylinkData>[];
-  message?: string;
 }
 
 interface PaylinkData {
