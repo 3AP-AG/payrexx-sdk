@@ -2,8 +2,12 @@
 
 **Payrexx SDK** for NodeJS with TypeScript support.
 
-The library supports only *Paylink* feature from the **Payrexx API** at the moment.
-Other functionality e.g. *QR code*, *Subscription*, *Design* will come as the library continues to be developed.
+Supported **Payrexx API** functionalities:
+
+- **Paylink**
+- **Gateway**
+
+Support for functionalities like *QR code*, *Subscription*, *Design* will come as the library continues to be developed.
 
 Visit the [Payrexx](https://payrexx.com/) for more information.
 
