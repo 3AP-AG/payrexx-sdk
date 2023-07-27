@@ -1,7 +1,7 @@
 interface GatewayResponse {
   status: string;
   data: Partial<GatewayData>[];
-  message: string;
+  message?: string;
 }
 
 interface GatewayData {
@@ -13,7 +13,7 @@ interface GatewayData {
   invoices: any[];
   preAuthorization: boolean;
   reservation: number;
-  fields: FieldRecord;
+  fields: FieldResponse;
   psp: any[];
   pm: any[];
   amount: number;
@@ -39,6 +39,11 @@ const fields = [
   'terms',
   'privacy_policy',
   'text',
+  'custom_field_1',
+  'custom_field_2',
+  'custom_field_3',
+  'custom_field_4',
+  'custom_field_5',
 ] as const;
 type FieldKey = (typeof fields)[number];
 
@@ -53,7 +58,7 @@ type Field = {
   };
 };
 
-type FieldRecord = Partial<Record<FieldKey, Field>>;
+type FieldResponse = Partial<Record<FieldKey, Field>>;
 
 interface GatewayRequest {
   /**
@@ -93,7 +98,7 @@ interface GatewayRequest {
    * The sum of all product amounts must match the amount parameter above.
    * Basket products contains name, description, quantity, amount (in cents) and vatRate (in Percent)
    */
-  basket?: [];
+  basket?: BasketItem[];
   /**
    * List of PSPs to provide for payment. If empty all available PSPs are provied
    */
@@ -122,7 +127,7 @@ interface GatewayRequest {
   /**
    * The contact data fields which should be stored along with payment
    */
-  fields?: any;
+  fields?: Partial<FieldRequest>;
   /**
    * Skip result page and directly redirect to success or failed URL
    */
@@ -168,5 +173,54 @@ interface GatewayRequest {
    */
   qrCodeSessionId?: string;
 }
+
+interface BasketItem {
+  /**
+   * Name of item
+   */
+  name: string[];
+  /**
+   * Description of item
+   */
+  description: string[];
+  /**
+   * Quantity of item
+   */
+  quantity: number;
+  /**
+   * Amount in cents
+   */
+  amount: number;
+  /**
+   * VAT rate of item (overrides vatRate of Gateway, can be 0)
+   */
+  vatRate?: number;
+}
+
+interface FieldRequest {
+  title: FieldValue;
+  forename: FieldValue;
+  surname: FieldValue;
+  company: FieldValue;
+  street: FieldValue;
+  postcode: FieldValue;
+  place: FieldValue;
+  country: FieldValue;
+  phone: FieldValue;
+  email: FieldValue;
+  date_of_birth: FieldValue;
+  terms: string;
+  privacy_policy: string;
+  custom_field_1: FieldValue;
+  custom_field_2: FieldValue;
+  custom_field_3: FieldValue;
+  custom_field_4: FieldValue;
+  custom_field_5: FieldValue;
+}
+
+type FieldValue = {
+  value: string;
+  name?: string[];
+};
 
 export type { GatewayResponse, GatewayRequest };
