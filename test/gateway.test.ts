@@ -3,10 +3,7 @@ import { PayrexxClient } from '../lib';
 import { GatewayRequest } from '../lib/api/v1/types/gateway';
 
 test.skip('test gateway get', async () => {
-  const client = new PayrexxClient(
-    '3ap-test',
-    'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka',
-  );
+  const client = new PayrexxClient('INSTANCE', 'SECRET');
   const result = await client.api.gateway.retrieve(1111111);
 
   console.log('result', result);
@@ -14,10 +11,7 @@ test.skip('test gateway get', async () => {
 });
 
 test.skip('test gateway create', async () => {
-  const client = new PayrexxClient(
-    '3ap-test',
-    'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka',
-  );
+  const client = new PayrexxClient('INSTANCE', 'SECRET');
 
   const params: GatewayRequest = {
     currency: 'CHF',
@@ -32,10 +26,7 @@ test.skip('test gateway create', async () => {
 });
 
 test.skip('test gateway delete', async () => {
-  const client = new PayrexxClient(
-    '3ap-test',
-    'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka',
-  );
+  const client = new PayrexxClient('INSTANCE', 'SECRET');
   const result = await client.api.gateway.remove(1111111);
 
   console.log('result', result);

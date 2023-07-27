@@ -5,10 +5,7 @@ import { PaylinkRequest } from '../lib/api/v1/types/paylink';
 // THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
 
 test.skip('test paylink get', async () => {
-  const client = new PayrexxClient(
-    '3ap-test',
-    'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka',
-  );
+  const client = new PayrexxClient('INSTANCE', 'SECRET');
   const result = await client.api.paylink.retrieve(1111111);
 
   console.log('result', result);
@@ -16,10 +13,7 @@ test.skip('test paylink get', async () => {
 });
 
 test.skip('test paylink create', async () => {
-  const client = new PayrexxClient(
-    '3ap-test',
-    'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka',
-  );
+  const client = new PayrexxClient('INSTANCE', 'SECRET');
 
   const params: PaylinkRequest = {
     vatRate: 7.7,
@@ -38,10 +32,7 @@ test.skip('test paylink create', async () => {
 });
 
 test.skip('test paylink delete', async () => {
-  const client = new PayrexxClient(
-    '3ap-test',
-    'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka',
-  );
+  const client = new PayrexxClient('INSTANCE', 'SECRET');
 
   const result = await client.api.paylink.remove(1111111);
 
