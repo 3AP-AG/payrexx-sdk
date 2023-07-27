@@ -1,7 +1,7 @@
-interface PaylinkResponse {
-  status: string;
+import { Response } from '../../interface/response';
+
+interface PaylinkResponse extends Response {
   data: Partial<PaylinkData>[];
-  message?: string;
 }
 
 interface PaylinkData {
@@ -21,8 +21,8 @@ interface PaylinkData {
   buttonText: string;
   api: boolean;
   fields: FieldRecord;
-  psp: string | number[];
-  pm: string[];
+  psp: number | number[] | string;
+  pm: string | string[];
   purpose: any;
   amount: number;
   vatRate: number;
