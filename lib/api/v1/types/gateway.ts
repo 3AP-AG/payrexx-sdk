@@ -4,7 +4,7 @@ interface GatewayResponse extends Response {
   data: Partial<GatewayData>[];
 }
 
-interface GatewayData {
+type GatewayData = {
   id: number;
   status: string;
   hash: string;
@@ -13,7 +13,7 @@ interface GatewayData {
   invoices: any[];
   preAuthorization: boolean;
   reservation: number;
-  fields: FieldResponse;
+  fields: Partial<Record<FieldKey, ResponseField>>;
   psp: any[];
   pm: any[];
   amount: number;
@@ -22,7 +22,7 @@ interface GatewayData {
   sku: string;
   aplicationFee: number;
   createdAt: number;
-}
+};
 
 const fields = [
   'title',
@@ -45,182 +45,404 @@ const fields = [
   'custom_field_4',
   'custom_field_5',
 ] as const;
+
 type FieldKey = (typeof fields)[number];
 
-type Field = {
+type ResponseField = {
   active: boolean;
   mandatory: boolean;
   names?: {
     de: string;
-    en: string;
     fr: string;
-    it: string;
   };
 };
 
-type FieldResponse = Partial<Record<FieldKey, Field>>;
+/**
+ * For detailed information visit https://developers.payrexx.com/reference/create-a-gateway
+ */
+class GatewayRequest {
+  private amount: number;
+  private currency: string;
+  private vatRate?: number;
+  private sku?: string;
+  private purpose?: string;
+  private successRedirectUrl?: string;
+  private failedRedirectUrl?: string;
+  private cancelRedirectUrl?: string;
+  private basket?: BasketItem[];
+  private psp?: number[];
+  private pm?: string[];
+  private preAuthorization?: boolean;
+  private reservation?: boolean;
+  private referenceId?: string;
+  private concardisOrderId?: string;
+  private fields?: Partial<Record<FieldKey, RequestField>>;
+  private skipResultPage?: boolean;
+  private chargeOnAuthorization?: boolean;
+  private validity?: number;
+  private subscriptionState?: boolean;
+  private subscriptionInterval?: string;
+  private subscriptionPeriod?: string;
+  private subscriptionCancellationInterval?: string;
+  private buttonText?: string[];
+  private lookAndFeelProfile?: string;
+  private successMessage?: string;
+  private qrCodeSessionId?: string;
 
-interface GatewayRequest {
   /**
-   * Amount of payment in cents
+   * Gateway create request
+   * @param amount Amount of payment in cents
+   * @param currency Currency of payment (ISO code)
    */
-  amount: number;
+  constructor(amount: number, currency: string) {
+    this.amount = amount;
+    this.currency = currency;
+  }
+
+  public getAmount() {
+    return this.amount;
+  }
+
   /**
-   * Currency of payment (ISO code)
+   * @param amount Amount of payment in cents
    */
-  currency: string;
+  public setAmount(amount: number) {
+    this.amount = amount;
+  }
+
+  public getCurrency() {
+    return this.currency;
+  }
+
   /**
-   * VAT Rate Percentage
+   * @param currency Currency of payment (ISO code)
    */
-  vatRate?: number;
+  public setCurrency(currency: string) {
+    this.currency = currency;
+  }
+
+  public getVatRate() {
+    return this.vatRate;
+  }
+
   /**
-   * Product stock keeping unit
+   * @param vatRate VAT Rate Percentage
    */
-  sku?: string;
+  public setVatRate(vatRate: number) {
+    this.vatRate = vatRate;
+  }
+
+  public getSku() {
+    return this.sku;
+  }
+
   /**
-   * The purpose of the payment
+   * @param sku Product stock keeping unit
    */
-  purpose?: string;
+  public setSku(sku: string) {
+    this.sku = sku;
+  }
+
+  public getPurpose() {
+    return this.purpose;
+  }
+
   /**
-   * URL to redirect to after successful payment
+   * @param purpose The purpose of the payment
    */
-  successRedirectUrl?: string;
+  public setPurpose(purpose: string) {
+    this.purpose = purpose;
+  }
+
+  public getSuccessRedirectUrl() {
+    return this.successRedirectUrl;
+  }
+
   /**
-   * URL to redirect to after failed payment
+   * @param successRedirectUrl URL to redirect to after successful payment
    */
-  failedRedirectUrl?: string;
+  public setSuccessRedirectUrl(successRedirectUrl: string) {
+    this.successRedirectUrl = successRedirectUrl;
+  }
+
+  public getFailedRedirectUrl() {
+    return this.failedRedirectUrl;
+  }
+
   /**
-   * URL to redirect to after manual cancellation by shopper
+   * @param failedRedirectUrl URL to redirect to after failed payment
    */
-  cancelRedirectUrl?: string;
+  public setFailedRedirectUrl(failedRedirectUrl: string) {
+    this.failedRedirectUrl = failedRedirectUrl;
+  }
+
+  public getCancelRedirectUrl() {
+    return this.cancelRedirectUrl;
+  }
+
   /**
-   * List of all products (incl. shipping costs).
-   * The sum of all product amounts must match the amount parameter above.
-   * Basket products contains name, description, quantity, amount (in cents) and vatRate (in Percent)
+   * @param cancelRedirectUrl URL to redirect to after manual cancellation by shopper
    */
-  basket?: BasketItem[];
+  public setCancelRedirectUrl(cancelRedirectUrl: string) {
+    this.cancelRedirectUrl = cancelRedirectUrl;
+  }
+
+  public getBasket() {
+    return this.basket;
+  }
+
   /**
-   * List of PSPs to provide for payment. If empty all available PSPs are provied
+   * @param name Name of the item
+   * @param quantity Quantity of the item
+   * @param amount Amount in cents
+   * @param description Item's description
+   * @param vatRate VAT rate of item (overrides vatRate of Gateway, can be 0)
    */
-  psp?: number[];
+  public addBasketItem(
+    name: string[],
+    quantity: number,
+    amount: number,
+    description?: string[] | null,
+    vatRate?: number | null,
+  ) {
+    if (this.basket === undefined) {
+      this.basket = [];
+    }
+
+    this.basket = [
+      ...this.basket,
+      {
+        name,
+        amount,
+        quantity,
+        description: description || undefined,
+        vatRate: vatRate || undefined,
+      },
+    ];
+  }
+
+  public getPsp() {
+    return this.psp;
+  }
+
   /**
-   * List of payment mean names to display
+   * @param psp List of PSPs to provide for payment. If empty all available PSPs are provied
    */
-  pm?: string[];
+  public setPsp(psp: number[]) {
+    this.psp = psp;
+  }
+
+  public getPm() {
+    return this.pm;
+  }
+
   /**
-   * Whether charge payment manually at a later date (type authorization)
+   * @param pm List of payment mean names to display
    */
-  preAuthorization?: boolean;
+  public setPm(pm: string[]) {
+    this.pm = pm;
+  }
+
+  public getPreAuthorization() {
+    return this.preAuthorization;
+  }
+
   /**
-   * Whether charge payment manually at a later date (type reservation)
+   * @param preAuthorization Whether charge payment manually at a later date (type authorization)
    */
-  reservation?: boolean;
+  public setPreAuthorization(preAuthorization: boolean) {
+    this.preAuthorization = preAuthorization;
+  }
+
+  public getReservation() {
+    return this.reservation;
+  }
+
   /**
-   * An internal reference id used by your system
+   * @param reservation Whether charge payment manually at a later date (type reservation)
    */
-  referenceId?: string;
+  public setReservation(reservation: boolean) {
+    this.reservation = reservation;
+  }
+
+  public getReferenceId() {
+    return this.referenceId;
+  }
+
   /**
-   * Only available for Concardis PSP and if the custom ORDERID option is activated in PSP settings in Payrexx administration.
-   * This ORDERID will be transferred to the Payengine
+   * @param referenceId An internal reference id used by your system
    */
-  concardisOrderId?: string;
+  public setReferenceId(referenceId: string) {
+    this.referenceId = referenceId;
+  }
+
+  public getConcardisOrderId() {
+    return this.concardisOrderId;
+  }
+
+  /**
+   * @param concardisOrderId Only available for Concardis PSP and if the custom ORDERID option is activated in PSP settings in Payrexx administration. This ORDERID will be transferred to the Payengine
+   */
+  public setConcardisOrderId(concardisOrderId: string) {
+    this.concardisOrderId = concardisOrderId;
+  }
+
+  public getFields() {
+    return this.fields;
+  }
+
   /**
    * The contact data fields which should be stored along with payment
+   * @param type The type of field
+   * @param value Value of the field
+   * @param name Name of the field
    */
-  fields?: Partial<FieldRequest>;
+  public addField(type: FieldKey, value: string, name?: string[]) {
+    const fields = { ...this.fields };
+    fields[type] = {
+      value,
+      name,
+    };
+    this.fields = { ...fields };
+  }
+
+  public getSkipResultPage() {
+    return this.skipResultPage;
+  }
+
   /**
-   * Skip result page and directly redirect to success or failed URL
+   * @param skipResultPage Skip result page and directly redirect to success or failed URL
    */
-  skipResultPage?: boolean;
+  public setSkipResultPage(skipResultPage: boolean) {
+    this.skipResultPage = skipResultPage;
+  }
+
+  public getChargeOnAuthorization() {
+    return this.chargeOnAuthorization;
+  }
+
   /**
-   * preAuthorization needs to be "true". This will charge the authorization during the first payment
+   * @param chargeOnAuthorization preAuthorization needs to be "true". This will charge the authorization during the first payment
    */
-  chargeOnAuthorization?: boolean;
+  public setChargeOnAuthorization(chargeOnAuthorization: boolean) {
+    this.chargeOnAuthorization = chargeOnAuthorization;
+  }
+
+  public getValidity() {
+    return this.validity;
+  }
+
   /**
-   * Gateway validity in minutes
+   * @param validity Gateway validity in minutes
    */
-  validity?: number;
+  public setValidity(validity: number) {
+    this.validity = validity;
+  }
+
+  public getSubscriptionState() {
+    return this.subscriptionState;
+  }
+
   /**
-   * Defines whether the payment should be handled as subscription
+   * @param subscriptionState Defines whether the payment should be handled as subscription
    */
-  subscriptionState?: boolean;
+  public setSubscriptionState(subscriptionState: boolean) {
+    this.subscriptionState = subscriptionState;
+  }
+
+  public getSubscriptionInterval() {
+    return this.subscriptionInterval;
+  }
+
   /**
-   * Payment interval
+   * @param subscriptionInterval Payment interval
    */
-  subscriptionInterval?: string;
+  public setSubscriptionInterval(subscriptionInterval: string) {
+    this.subscriptionInterval = subscriptionInterval;
+  }
+
+  public getSubscriptionPeriod() {
+    return this.subscriptionPeriod;
+  }
+
   /**
-   * Duration of the subscription
+   * @param subscriptionPeriod Duration of the subscription
    */
-  subscriptionPeriod?: string;
+  public setSubscriptionPeriod(subscriptionPeriod: string) {
+    this.subscriptionPeriod = subscriptionPeriod;
+  }
+
+  public getSubscriptionCancellationInterval() {
+    return this.subscriptionCancellationInterval;
+  }
+
   /**
-   * Defines the period, in which a subscription can be canceled
+   * @param subscriptionCancellationInterval Defines the period, in which a subscription can be canceled
    */
-  subscriptionCancellationInterval?: string;
+  public setSubscriptionCancellationInterval(
+    subscriptionCancellationInterval: string,
+  ) {
+    this.subscriptionCancellationInterval = subscriptionCancellationInterval;
+  }
+
+  public getButtonText() {
+    return this.buttonText;
+  }
+
   /**
-   * Change the default button Text "Pay" to a custom String
+   * @param buttonText Change the default button Text "Pay" to a custom String
    */
-  buttonText?: string[];
+  public setButtonText(buttonText: string[]) {
+    this.buttonText = buttonText;
+  }
+
+  public getLookAndFeelProfile() {
+    return this.lookAndFeelProfile;
+  }
+
   /**
-   * UUID of the look and feel profile to use
+   * @param lookAndFeelProfile UUID of the look and feel profile to use
    */
-  lookAndFeelProfile?: string;
+  public setLookAndFeelProfile(lookAndFeelProfile: string) {
+    this.lookAndFeelProfile = lookAndFeelProfile;
+  }
+
+  public getSuccessMessage() {
+    return this.successMessage;
+  }
+
   /**
-   * Custom success message on result page
+   * @param successMessage Custom success message on result page
    */
-  successMessage?: string;
+  public setSuccessMessage(successMessage: string) {
+    this.successMessage = successMessage;
+  }
+
+  public getQrCodeSessionId() {
+    return this.qrCodeSessionId;
+  }
+
   /**
-   * Holds the session ID of a scanned QR code. Only available and needed for Static QR Code with Twint.
+   * @param qrCodeSessionId Holds the session ID of a scanned QR code. Only available and needed for Static QR Code with Twint.
    */
-  qrCodeSessionId?: string;
+  public setQrCodeSessionId(qrCodeSessionId: string) {
+    this.qrCodeSessionId = qrCodeSessionId;
+  }
 }
 
-interface BasketItem {
-  /**
-   * Name of item
-   */
+type BasketItem = {
   name: string[];
-  /**
-   * Description of item
-   */
-  description: string[];
-  /**
-   * Quantity of item
-   */
+  description?: string[];
   quantity: number;
-  /**
-   * Amount in cents
-   */
   amount: number;
-  /**
-   * VAT rate of item (overrides vatRate of Gateway, can be 0)
-   */
   vatRate?: number;
-}
+};
 
-interface FieldRequest {
-  title: FieldValue;
-  forename: FieldValue;
-  surname: FieldValue;
-  company: FieldValue;
-  street: FieldValue;
-  postcode: FieldValue;
-  place: FieldValue;
-  country: FieldValue;
-  phone: FieldValue;
-  email: FieldValue;
-  date_of_birth: FieldValue;
-  terms: string;
-  privacy_policy: string;
-  custom_field_1: FieldValue;
-  custom_field_2: FieldValue;
-  custom_field_3: FieldValue;
-  custom_field_4: FieldValue;
-  custom_field_5: FieldValue;
-}
-
-type FieldValue = {
+type RequestField = {
   value: string;
   name?: string[];
 };
 
-export type { GatewayResponse, GatewayRequest };
+export type { GatewayResponse };
+
+export { GatewayRequest };

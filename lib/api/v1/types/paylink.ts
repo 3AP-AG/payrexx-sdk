@@ -4,7 +4,7 @@ interface PaylinkResponse extends Response {
   data: Partial<PaylinkData>[];
 }
 
-interface PaylinkData {
+type PaylinkData = {
   id: number;
   status: string;
   hash: string;
@@ -20,10 +20,10 @@ interface PaylinkData {
   description: string;
   buttonText: string;
   api: boolean;
-  fields: FieldRecord;
+  fields: Partial<Record<FieldKey, ResponseField>>;
   psp: number | number[] | string;
   pm: string | string[];
-  purpose: any;
+  purpose: Record<string, string>;
   amount: number;
   vatRate: number;
   currency: string;
@@ -35,10 +35,9 @@ interface PaylinkData {
   subscriptionPeriod: string;
   subscriptionPeriodMinAmount: string;
   subscriptionCancellationInterval: string;
-}
+};
 
 const fields = [
-  'header',
   'title',
   'forename',
   'surname',
@@ -55,127 +54,353 @@ const fields = [
   'custom_field_1',
   'custom_field_2',
   'custom_field_3',
+  'custom_field_4',
+  'custom_field_5',
 ] as const;
 type FieldKey = (typeof fields)[number];
 
-type Field = {
+type ResponseField = {
   active: boolean;
   mandatory: boolean;
   names?: {
     de: string;
-    en: string;
     fr: string;
-    it: string;
   };
 };
 
-type FieldRecord = Partial<Record<FieldKey, Field>>;
+class PaylinkRequest {
+  private title: string | string[];
+  private description: string;
+  private referenceId: string;
+  private purpose: string | string[];
+  private amount: number;
+  private currency: string;
+  private vatRate?: number;
+  private psp?: string | number[];
+  private pm?: string[];
+  private sku?: string;
+  private preAuthorization?: boolean;
+  private reservation?: boolean;
+  private name?: string;
+  private fields?: Partial<Record<FieldKey, RequestField>>;
+  private hideFields?: boolean;
+  private concardisOrderId?: string;
+  private buttonText?: string;
+  private expirationDate?: string;
+  private successRedirectUrl?: string;
+  private failedRedirectUrl?: string;
+  private subscriptionState?: boolean;
+  private subscriptionInterval?: string;
+  private subscriptionCancellationInterval?: string;
 
-/**
- * Interface for paylink request.
- * For more information visit: https://developers.payrexx.com/reference/create-a-paylink
- */
-interface PaylinkRequest {
   /**
-   * This is the page title which will be shown on the payment page.
-   * Multi language support for FR and DE e.g. ['TITLE FR', 'TITLE DE']
+   * Paylink creation request
+   * @param title The page title which will be shown on the payment page. Multi language support for FR and DE e.g. ['TITLE FR', 'TITLE DE']
+   * @param description The description which will be shown on the payment page
+   * @param referenceId An internal reference id used by your system
+   * @param purpose The purpose of the payment. Multi language support for FR and DE e.g. ['PURPOSE FR', 'PURPOSE DE']
+   * @param amount The amount of the payment in cents
+   * @param currency The corresponding payment currency for the amount (use ISO codes)
    */
-  title: string | string[];
+  constructor(
+    title: string | string[],
+    description: string,
+    referenceId: string,
+    purpose: string | string[],
+    amount: number,
+    currency: string,
+  ) {
+    this.title = title;
+    this.description = description;
+    this.referenceId = referenceId;
+    this.purpose = purpose;
+    this.amount = amount;
+    this.currency = currency;
+  }
+
+  getTitle() {
+    return this.title;
+  }
+
   /**
-   * This is a description which will be shown on the payment page.
+   *
+   * @param title The page title which will be shown on the payment page. Multi language support for FR and DE e.g. ['TITLE FR', 'TITLE DE']
    */
-  description: string;
+  setTitle(title: string | string[]) {
+    this.title = title;
+  }
+
+  getDescription() {
+    return this.description;
+  }
+
   /**
-   * An internal reference id used by your system.
+   *
+   * @param description The description which will be shown on the payment page.
    */
-  referenceId: string;
+  setDescription(description: string) {
+    this.description = description;
+  }
+
+  getReferenceId() {
+    return this.referenceId;
+  }
+
   /**
-   * The purpose of the payment.
-   * Multi language support for FR and DE e.g. ['PURPOSE FR', 'PURPOSE DE']
+   *
+   * @param referenceId An internal reference id used by your system.
    */
-  purpose: string | string[];
+  setReferenceId(referenceId: string) {
+    this.referenceId = referenceId;
+  }
+
+  getPurpose() {
+    return this.purpose;
+  }
+
   /**
-   * The amount of the payment in cents.
+   *
+   * @param purpose The purpose of the payment. Multi language support for FR and DE e.g. ['PURPOSE FR', 'PURPOSE DE']
    */
-  amount: number;
+  setPurpose(purpose: string | string[]) {
+    this.purpose = purpose;
+  }
+
+  getAmount() {
+    return this.amount;
+  }
+
   /**
-   * The currency of the payment.
+   *
+   * @param amount The amount of the payment in cents
    */
-  currency: string;
+  setAmount(amount: number) {
+    this.amount = amount;
+  }
+
+  getCurrency() {
+    return this.currency;
+  }
+
   /**
-   * VAT rate percentage
+   *
+   * @param currency The corresponding payment currency for the amount (use ISO codes)
    */
-  vatRate?: number;
+  setCurrency(currency: string) {
+    this.currency = currency;
+  }
+
+  getVatRate() {
+    return this.vatRate;
+  }
+
   /**
-   * The psp which should be used for the payment. (Can be an array of integers.)
+   * @param vatRate VAT rate percentage
    */
-  psp?: string | number[];
+  setVatRate(vatRate: number) {
+    this.vatRate = vatRate;
+  }
+
+  getPsp() {
+    return this.psp;
+  }
+
   /**
-   * List of payment mean names to display
+   * @param psp The psp which should be used for the payment. (Can be an array of integers.)
    */
-  pm?: string[];
+  setPsp(psp: string | number[]) {
+    this.psp = psp;
+  }
+
+  getPm() {
+    return this.pm;
+  }
+
   /**
-   * Product stock keeping unit
+   * @param pm List of payment mean names to display
    */
-  sku?: string;
+  setPm(pm: string[]) {
+    this.pm = pm;
+  }
+
+  getSku() {
+    return this.sku;
+  }
+
   /**
-   * Whether charge payment manually at a later date (type authorization).
+   * @param sku Product stock keeping unit
    */
-  preAuthorization?: boolean;
+  setSku(sku: string) {
+    this.sku = sku;
+  }
+
+  getPreAuthorization() {
+    return this.preAuthorization;
+  }
+
   /**
-   * Whether charge payment manually at a later date (type reservation).
+   * @param preAuthorization Whether charge payment manually at a later date (type authorization).
    */
-  reservation?: boolean;
+  setPreAuthorization(preAuthorization: boolean) {
+    this.preAuthorization = preAuthorization;
+  }
+
+  getReservation() {
+    return this.reservation;
+  }
+
   /**
-   * This is an internal name of the payment page. This name will be displayed to the administrator only.
+   * @param reservation Whether charge payment manually at a later date (type reservation).
    */
-  name?: string;
+  setReservation(reservation: boolean) {
+    this.reservation = reservation;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  /**
+   * @param name This is an internal name of the payment page. This name will be displayed to the administrator only.
+   */
+  setName(name: string) {
+    this.name = name;
+  }
+
+  getFields() {
+    return this.fields;
+  }
+
   /**
    * The contact data fields which should be displayed
+   *
+   * @param type The type of field
+   * @param mandatory TRUE if the field has to be filled out for payment
+   * @param defaultValue The default value. This value will be editable for the client.
+   * @param name The name of the field, (this is only available for the fields custom_field_[1,2,3,4,5]
    */
-  fields?: string[];
+  addField(
+    type: FieldKey,
+    mandatory: boolean,
+    defaultValue?: string | null,
+    name?: string | string[] | null,
+  ) {
+    const fields = { ...this.fields };
+    fields[type] = {
+      mandatory: mandatory ? mandatory : undefined,
+      defaultValue: defaultValue || '',
+      name: name || '',
+    };
+    this.fields = { ...fields };
+  }
+
+  getHideFields() {
+    return this.hideFields;
+  }
+
   /**
-   * Hide the whole contact fields section on invoice page
+   * @param hideFields Hide the whole contact fields section on invoice page
    */
-  hideFields?: boolean;
+  setHideFields(hideFields: boolean) {
+    this.hideFields = hideFields;
+  }
+
+  getConcardisOrderId() {
+    return this.concardisOrderId;
+  }
+
   /**
-   * Only available for Concardis PSP and if the custom ORDERID option is activated in PSP settings in Payrexx administration.
-   * This ORDERID will be transferred to the Payengine.
+   * @param concardisOrderId Only available for Concardis PSP and if the custom ORDERID option is activated in PSP settings in Payrexx administration. This ORDERID will be transferred to the Payengine.
    */
-  concardisOrderId?: string;
+  setConcardisOrderId(concardisOrderId: string) {
+    this.concardisOrderId = concardisOrderId;
+  }
+
+  getButtonText() {
+    return this.buttonText;
+  }
+
   /**
-   * Custom pay button text.
+   * @param buttonText Custom pay button text.
    */
-  buttonText?: string;
+  setButtonText(buttonText: string) {
+    this.buttonText = buttonText;
+  }
+
+  getExpirationDate() {
+    return this.expirationDate;
+  }
+
   /**
-   * Expiration date for link. Date format: yyyy-MM-dd
+   * @param expirationDate Expiration date for link. Date format: yyyy-MM-dd
    */
-  expirationDate?: string;
+  setExpirationDate(expirationDate: string) {
+    this.expirationDate = expirationDate;
+  }
+
+  getSuccessRedirectUrl() {
+    return this.successRedirectUrl;
+  }
+
   /**
-   * URL to redirect to after successful payment.
+   * @param successRedirectUrl URL to redirect to after successful payment.
    */
-  successRedirectUrl?: string;
+  setSuccessRedirectUrl(successRedirectUrl: string) {
+    this.successRedirectUrl = successRedirectUrl;
+  }
+
+  getFailedRedirectUrl() {
+    return this.failedRedirectUrl;
+  }
+
   /**
-   * URL to redirect to after failed payment.
+   * @param failedRedirectUrl URL to redirect to after failed payment.
    */
-  failedRedirectUrl?: string;
+  setFailedRedirectUrl(failedRedirectUrl: string) {
+    this.failedRedirectUrl = failedRedirectUrl;
+  }
+
+  getSubscriptionState() {
+    return this.subscriptionState;
+  }
+
   /**
-   * Defines whether the payment should be handled as subscription.
+   * @param subscriptionState Defines whether the payment should be handled as subscription.
    */
-  subscriptionState?: boolean;
+  setSubscriptionState(subscriptionState: boolean) {
+    this.subscriptionState = subscriptionState;
+  }
+
+  getSubscriptionInterval() {
+    return this.subscriptionInterval;
+  }
+
   /**
-   * Duration of the subscription
+   * @param subscriptionInterval Duration of the subscription
    */
-  subscriptionInterval?: string;
+  setSubscriptionInterval(subscriptionInterval: string) {
+    this.subscriptionInterval = subscriptionInterval;
+  }
+
+  getSubscriptionCancellationInterval() {
+    return this.subscriptionCancellationInterval;
+  }
+
   /**
-   * Defines the period, in which a subscription can be canceled.
+   * @param subscriptionCancellationInterval Defines the period, in which a subscription can be canceled.
    */
-  subscriptionCancellationInterval?: string;
-  /**
-   * Generated API signature based on params and API secret.
-   * Do NOT provide this value manually!
-   */
-  ApiSignature?: string;
+  setSubscriptionCancellationInterval(
+    subscriptionCancellationInterval: string,
+  ) {
+    this.subscriptionCancellationInterval = subscriptionCancellationInterval;
+  }
 }
 
-export type { PaylinkRequest, PaylinkResponse };
+type RequestField = {
+  mandatory?: boolean;
+  name?: string | string[];
+  defaultValue: string;
+};
+
+export { PaylinkRequest };
+export type { PaylinkResponse };

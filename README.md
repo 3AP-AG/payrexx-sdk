@@ -46,7 +46,7 @@ await client.api.paylink.retrieve(id);
 <https://developers.payrexx.com/reference/create-a-paylink>
 
 ```ts
-const request: PaylinkRequest =  {};
+const request = new PaylinkRequest(title, description, referenceId, purpose, amount, currency);
 await client.api.paylink.create(request);
 ```
 
@@ -73,7 +73,7 @@ await client.api.gateway.retrieve(id);
 <https://developers.payrexx.com/reference/create-a-gateway>
 
 ```ts
-const request: GatewayRequest = {};
+const request = new GatewayRequest(amount, currency);
 await client.api.gateway.create(request);
 ```
 
