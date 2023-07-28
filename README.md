@@ -73,7 +73,7 @@ await client.api.gateway.retrieve(id);
 <https://developers.payrexx.com/reference/create-a-gateway>
 
 ```ts
-const request: GatewayRequest = {};
+const request = new GatewayRequest(amount, currency);
 await client.api.gateway.create(request);
 ```
 
