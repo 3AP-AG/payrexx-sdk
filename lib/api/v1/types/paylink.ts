@@ -181,9 +181,25 @@ class PaylinkRequest {
   }
   /**
    * The contact data fields which should be displayed
+   *
+   * @param type The type of field
+   * @param mandatory TRUE if the field has to be filled out for payment
+   * @param defaultValue The default value. This value will be editable for the client.
+   * @param name The name of the field, (this is only available for the fields custom_field_[1,2,3,4,5]
    */
-  addField() {
-    // TODO: Partial<Record<FieldKey, RequestFieldValues>>
+  addField(
+    type: FieldKey,
+    mandatory: boolean,
+    defaultValue?: string,
+    name?: string | string[],
+  ) {
+    const fields = { ...this.fields };
+    fields[type] = {
+      mandatory: mandatory ? mandatory : undefined,
+      defaultValue: defaultValue || '',
+      name: name || '',
+    };
+    this.fields = { ...fields };
   }
   /**
    * Hide the whole contact fields section on invoice page
