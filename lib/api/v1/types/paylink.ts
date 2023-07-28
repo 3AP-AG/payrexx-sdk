@@ -4,7 +4,7 @@ interface PaylinkResponse extends Response {
   data: Partial<PaylinkData>[];
 }
 
-interface PaylinkData {
+type PaylinkData = {
   id: number;
   status: string;
   hash: string;
@@ -35,7 +35,7 @@ interface PaylinkData {
   subscriptionPeriod: string;
   subscriptionPeriodMinAmount: string;
   subscriptionCancellationInterval: string;
-}
+};
 
 const fields = [
   'title',
