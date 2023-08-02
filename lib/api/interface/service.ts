@@ -12,9 +12,16 @@ export abstract class Service<T, K extends Response> {
     this.baseUrl = `https://api.payrexx.com/v1.0/${endpoint}`;
   }
 
-  protected async get(path: string): Promise<K> {
+  protected async get(path?: string): Promise<K> {
+    let url: string;
     const signature = this.authHelper.buildSiganture();
-    const url = `${this.baseUrl}/${path}/?instance=${this.instance}&ApiSignature=${signature}`;
+
+    if (path) {
+      url = `${this.baseUrl}/${path}/?instance=${this.instance}&ApiSignature=${signature}`;
+    } else {
+      url = `${this.baseUrl}/?instance=${this.instance}&ApiSignature=${signature}`;
+    }
+
     const response = await fetch(url);
 
     const result: K = await response.json();
