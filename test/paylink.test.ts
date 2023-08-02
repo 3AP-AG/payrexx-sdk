@@ -25,7 +25,8 @@ describe('Paylink', () => {
       1000,
       'CHF',
     );
-    params.addField('forename', true, 'Veljko');
+    params.addField('forename', true, 'Name');
+    params.addField('surname', false, 'Surname');
 
     const result = await client.api.paylink.create(params);
 

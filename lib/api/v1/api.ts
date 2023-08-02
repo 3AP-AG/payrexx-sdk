@@ -5,11 +5,11 @@ import { QrCodeService } from './service/qrcode-service';
 export default class Api {
   public readonly paylink: PaylinkService;
   public readonly gateway: GatewayService;
-  public readonly qrcode: QrCodeService;
+  public readonly qrCode: QrCodeService;
 
   constructor(instance: string, apiSecret: string) {
     this.paylink = new PaylinkService(instance, apiSecret);
     this.gateway = new GatewayService(instance, apiSecret);
-    this.qrcode = new QrCodeService(instance, apiSecret);
+    this.qrCode = new QrCodeService(instance, apiSecret);
   }
 }
