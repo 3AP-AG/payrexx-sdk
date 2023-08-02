@@ -1,8 +1,6 @@
 import { Service } from '../../interface/service';
 import { GatewayRequest, GatewayResponse } from '../types/gateway';
 
-// THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
-
 export class GatewayService extends Service<GatewayRequest, GatewayResponse> {
   constructor(instance: string, apiSecret: string) {
     super(instance, apiSecret);
