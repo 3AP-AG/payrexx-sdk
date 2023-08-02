@@ -1,6 +1,5 @@
-import { PayrexxClient } from '../lib';
+import { PaylinkRequest, PayrexxClient } from '../lib';
 import { beforeEach, describe, expect, test } from 'vitest';
-import { PaylinkRequest } from '../lib/api/v1/types/paylink';
 
 // THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
 describe('Paylink', () => {

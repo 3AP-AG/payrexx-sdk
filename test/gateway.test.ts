@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest';
-import { PayrexxClient } from '../lib';
-import { GatewayRequest } from '../lib/api/v1/types/gateway';
+import { GatewayRequest, PayrexxClient } from '../lib';
 
 // THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
 
