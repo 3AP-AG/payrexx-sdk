@@ -3,43 +3,18 @@ import { GatewayRequest, GatewayResponse } from '../types/gateway';
 
 export class GatewayService extends Service<GatewayRequest, GatewayResponse> {
   constructor(instance: string, apiSecret: string) {
-    super(instance, apiSecret);
+    super(instance, apiSecret, 'Gateway');
   }
 
   async retrieve(id: number): Promise<GatewayResponse> {
-    const signature = this.authHelper.buildSiganture();
-    const url = `${this.BASE_URL}/Gateway/${id}/?instance=${this.instance}&ApiSignature=${signature}`;
-    const response = await fetch(url);
-
-    const result: GatewayResponse = await response.json();
-
-    return this.handleResponse(result);
+    return this.get(`${id}`);
   }
 
   async create(request: GatewayRequest): Promise<GatewayResponse> {
-    const url = `${this.BASE_URL}/Gateway/?instance=${this.instance}`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: this.authHelper.buildPayloadWithSignature(request),
-    });
-
-    const result: GatewayResponse = await response.json();
-
-    return this.handleResponse(result);
+    return this.post(request);
   }
 
   async remove(id: number): Promise<GatewayResponse> {
-    const url = `${this.BASE_URL}/Gateway/${id}/?instance=${this.instance}`;
-    const response = await fetch(url, {
-      method: 'DELETE',
-      body: this.authHelper.buildPayloadWithSignature(''),
-    });
-
-    const result: GatewayResponse = await response.json();
-
-    return this.handleResponse(result);
+    return this.delete(`${id}`);
   }
 }

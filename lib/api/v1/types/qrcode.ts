@@ -9,6 +9,7 @@ type QrCodeData = {
   webshopUrl: string;
   png: string;
   svg: string;
+  sessionId: string;
 };
 
 class QrCodeRequest {
