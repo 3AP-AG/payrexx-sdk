@@ -1,47 +1,35 @@
 import { Service } from '../../interface/service';
 import { GatewayRequest, GatewayResponse } from '../types/gateway';
 
-// THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
-
-export class GatewayService extends Service<GatewayRequest, GatewayResponse> {
+export class GatewayService extends Service {
   constructor(instance: string, apiSecret: string) {
-    super(instance, apiSecret);
+    super(instance, apiSecret, 'Gateway');
   }
 
+  /**
+   * Retrieve a gateway payment information
+   * @param id The id of gateway payment
+   * @returns Response from the Payrexx
+   */
   async retrieve(id: number): Promise<GatewayResponse> {
-    const signature = this.authHelper.buildSiganture();
-    const url = `${this.BASE_URL}/Gateway/${id}/?instance=${this.instance}&ApiSignature=${signature}`;
-    const response = await fetch(url);
-
-    const result: GatewayResponse = await response.json();
-
-    return this.handleResponse(result);
+    return this.get(`${id}`);
   }
 
+  /**
+   * Create a gateway payment
+   * @param request Form data for creation of gateway payment
+   * @returns Response from the Payrexx
+   */
   async create(request: GatewayRequest): Promise<GatewayResponse> {
-    const url = `${this.BASE_URL}/Gateway/?instance=${this.instance}`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: this.authHelper.buildPayloadWithSignature(request),
-    });
-
-    const result: GatewayResponse = await response.json();
-
-    return this.handleResponse(result);
+    return this.post(request);
   }
 
+  /**
+   * Delete a gateway payment
+   * @param id The id of gateway payment
+   * @returns Response from the Payrexx
+   */
   async remove(id: number): Promise<GatewayResponse> {
-    const url = `${this.BASE_URL}/Gateway/${id}/?instance=${this.instance}`;
-    const response = await fetch(url, {
-      method: 'DELETE',
-      body: this.authHelper.buildPayloadWithSignature(''),
-    });
-
-    const result: GatewayResponse = await response.json();
-
-    return this.handleResponse(result);
+    return this.delete(`${id}`);
   }
 }

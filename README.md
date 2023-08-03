@@ -6,8 +6,13 @@ Supported **Payrexx API** functionalities:
 
 - **Paylink**
 - **Gateway**
+- **QR code**
+- **Payment Provider**
+- **Payment Method**
 
-Support for functionalities like *QR code*, *Subscription*, *Design* will come as the library continues to be developed.
+Unsupported **Payrexx API** functionalities:
+
+- **Subscription** API is still in experimental state on the Payrexx, hence it will not be supported by this library
 
 Visit the [Payrexx](https://payrexx.com/) for more information.
 
@@ -15,7 +20,7 @@ Visit the [Payrexx](https://payrexx.com/) for more information.
 
 This library is unofficial and is developed independently from the Payrexx payment provider.
 
-Please note that the library is in active development and not all Payrexx features are fully tested.
+Please note that **QR code** is not fully tested.
 
 ## How to use 🖥️
 
@@ -31,58 +36,22 @@ Start by creating the Payrexx client. You will need to provide your **Payrexx** 
 const client = new PayrexxClient('PAYREXX_INSTANCE', 'API_SECRET')
 ```
 
-### Paylink
+### API
 
-#### Retrieve a paylink with `id`
+API is grouped by Payrexx functionalities:
 
-<https://developers.payrexx.com/reference/retrieve-a-paylink>
+```ts
+client.api.paylink
+client.api.gateway
+client.api.qrCode
+client.api.paymentProvider
+client.api.paymentMethod
+```
+
+Use example - retrieve the paylink:
 
 ```ts
 await client.api.paylink.retrieve(id);
-```
-
-#### Create a paylink
-
-<https://developers.payrexx.com/reference/create-a-paylink>
-
-```ts
-const request = new PaylinkRequest(title, description, referenceId, purpose, amount, currency);
-await client.api.paylink.create(request);
-```
-
-#### Remove a paylink with `id`
-
-<https://developers.payrexx.com/reference/remove-a-paylink>
-
-```ts
-await client.api.paylink.remove(id);
-```
-
-### Gateway
-
-#### Retrieve a gateway with `id`
-
-<https://developers.payrexx.com/reference/retrieve-a-gateway>
-
-```ts
-await client.api.gateway.retrieve(id);
-```
-
-#### Create a gateway
-
-<https://developers.payrexx.com/reference/create-a-gateway>
-
-```ts
-const request = new GatewayRequest(amount, currency);
-await client.api.gateway.create(request);
-```
-
-#### Remove a gateway with `id`
-
-<https://developers.payrexx.com/reference/delete-a-gateway>
-
-```ts
-await client.api.gateway.remove(id);
 ```
 
 ### Webhook
