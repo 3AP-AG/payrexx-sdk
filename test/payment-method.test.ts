@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 import {
   PaymentMethodAllResponse,
-  PaymentMethodRequest,
   PaymentMethodResponse,
   PayrexxClient,
 } from '../lib';
@@ -26,19 +25,11 @@ describe('Payment method', () => {
   });
 
   test.skip('test get all', async () => {
+    console.log('INSTANCE', process.env.INSTANCE);
     const result: PaymentMethodAllResponse =
       await client.api.paymentMethod.retrieveAll();
     console.log('RESULT', result);
     console.log('RESULT options_by_psp', result.data[0].options_by_psp);
-    expect(result.status).toEqual('success');
-  });
-
-  test.skip('test get all with filter', async () => {
-    const request = new PaymentMethodRequest();
-    request.setFilterCurrency('CHF');
-    const result: PaymentMethodAllResponse =
-      await client.api.paymentMethod.retrieveAll(request);
-    console.log('RESULT', result);
     expect(result.status).toEqual('success');
   });
 });
