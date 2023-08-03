@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 import { GatewayRequest, PayrexxClient } from '../lib';
+import clientConfig from './client-config';
 
 // THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
 
@@ -7,7 +8,7 @@ describe('Gateway', () => {
   let client: PayrexxClient;
 
   beforeEach(() => {
-    client = new PayrexxClient('INSTANCE', 'SECRET');
+    client = new PayrexxClient(clientConfig.instance, clientConfig.secret);
   });
 
   test.skip('test get', async () => {

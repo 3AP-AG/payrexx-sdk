@@ -4,6 +4,7 @@ import {
   PaymentMethodResponse,
   PayrexxClient,
 } from '../lib';
+import clientConfig from './client-config';
 
 // THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
 
@@ -11,7 +12,7 @@ describe('Payment method', () => {
   let client: PayrexxClient;
 
   beforeEach(() => {
-    client = new PayrexxClient('3ap-test', 'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka');
+    client = new PayrexxClient(clientConfig.instance, clientConfig.secret);
   });
 
   test.skip('test get visa', async () => {
@@ -23,7 +24,8 @@ describe('Payment method', () => {
     expect(result.status).toEqual('success');
   });
 
-  test('test get all', async () => {
+  test.skip('test get all', async () => {
+    console.log('INSTANCE', process.env.INSTANCE);
     const result: PaymentMethodAllResponse =
       await client.api.paymentMethod.retrieveAll();
     console.log('RESULT', result);
