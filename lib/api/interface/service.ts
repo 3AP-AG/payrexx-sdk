@@ -30,6 +30,25 @@ export abstract class Service {
     return this.handleResponse(result);
   }
 
+  protected async getWithData<T, R extends Response>(request: T): Promise<R> {
+    const signature = this.authHelper.buildSiganture();
+    const url = `${this.baseUrl}/?instance=${this.instance}&ApiSignature=${signature}`;
+
+    const response = await axios.request({
+      method: 'GET',
+      url: url,
+      data: this.authHelper.buildPayloadWithSignature(request),
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+    });
+
+    const result: R = await response.data;
+
+    return this.handleResponse(result);
+  }
+
   protected async post<T, R extends Response>(request: T): Promise<R> {
     const url = `${this.baseUrl}/?instance=${this.instance}`;
     const response = await axios.post(
@@ -71,6 +90,10 @@ export abstract class Service {
       url: url,
       method: 'DELETE',
       data: this.authHelper.buildPayloadWithSignature(data),
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+      },
     });
 
     const result: T = await response.data;

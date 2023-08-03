@@ -1,6 +1,7 @@
 import { Service } from '../../interface/service';
 import {
   PaymentMethodAllResponse,
+  PaymentMethodRequest,
   PaymentMethodResponse,
 } from '../types/payment-method';
 
@@ -11,10 +12,15 @@ export class PaymentMethodService extends Service {
 
   /**
    *
+   * @param paymentMethodRequest Form data for filtering payment methods
    * @returns All Active Payment Methods
    */
-  async retrieveAll(): Promise<PaymentMethodAllResponse> {
-    return this.get();
+  async retrieveAll(
+    paymentMethodRequest?: PaymentMethodRequest,
+  ): Promise<PaymentMethodAllResponse> {
+    return paymentMethodRequest
+      ? this.getWithData(paymentMethodRequest)
+      : this.get();
   }
 
   /**
