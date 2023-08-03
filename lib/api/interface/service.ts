@@ -1,7 +1,7 @@
 import { AuthHelper } from '../../auth/auth.helper';
 import { Response } from './response';
 
-export abstract class Service<T, K extends Response> {
+export abstract class Service {
   protected readonly baseUrl: string;
   protected readonly instance: string;
   protected readonly authHelper: AuthHelper;
@@ -12,7 +12,7 @@ export abstract class Service<T, K extends Response> {
     this.baseUrl = `https://api.payrexx.com/v1.0/${endpoint}`;
   }
 
-  protected async get(path?: string): Promise<K> {
+  protected async get<T extends Response>(path?: string): Promise<T> {
     let url: string;
     const signature = this.authHelper.buildSiganture();
 
@@ -24,12 +24,12 @@ export abstract class Service<T, K extends Response> {
 
     const response = await fetch(url);
 
-    const result: K = await response.json();
+    const result: T = await response.json();
 
     return this.handleResponse(result);
   }
 
-  protected async post(request: T): Promise<K> {
+  protected async post<T, R extends Response>(request: T): Promise<R> {
     const url = `${this.baseUrl}/?instance=${this.instance}`;
     const response = await fetch(url, {
       method: 'POST',
@@ -39,36 +39,36 @@ export abstract class Service<T, K extends Response> {
       body: this.authHelper.buildPayloadWithSignature(request),
     });
 
-    const result: K = await response.json();
+    const result: R = await response.json();
 
     return this.handleResponse(result);
   }
 
-  protected async delete(path: string): Promise<K> {
+  protected async delete<T extends Response>(path: string): Promise<T> {
     const url = `${this.baseUrl}/${path}/?instance=${this.instance}`;
     const response = await fetch(url, {
       method: 'DELETE',
       body: this.authHelper.buildPayloadWithSignature(''),
     });
 
-    const result: K = await response.json();
+    const result: T = await response.json();
 
     return this.handleResponse(result);
   }
 
-  protected async deleteWithData(data: any): Promise<K> {
+  protected async deleteWithData<T extends Response>(data: any): Promise<T> {
     const url = `${this.baseUrl}/?instance=${this.instance}`;
     const response = await fetch(url, {
       method: 'DELETE',
       body: this.authHelper.buildPayloadWithSignature(data),
     });
 
-    const result: K = await response.json();
+    const result: T = await response.json();
 
     return this.handleResponse(result);
   }
 
-  protected handleResponse(result: K) {
+  protected handleResponse<T extends Response>(result: T) {
     if (result.status === 'error') {
       throw new Error(
         result.message ||

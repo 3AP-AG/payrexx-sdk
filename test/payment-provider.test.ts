@@ -7,10 +7,10 @@ describe('Payment provider', () => {
   let client: PayrexxClient;
 
   beforeEach(() => {
-    client = new PayrexxClient('3ap-test', 'cb3qqgqaDkTtP5ZO8pPvi6VkrReBka');
+    client = new PayrexxClient('INSTANCE', 'SECRET');
   });
 
-  test('test get all', async () => {
+  test.skip('test get all', async () => {
     const result: PaymentProviderResponse =
       await client.api.paymentProvider.retrieveAll();
 

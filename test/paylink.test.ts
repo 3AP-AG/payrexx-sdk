@@ -10,7 +10,7 @@ describe('Paylink', () => {
   });
 
   test.skip('test get', async () => {
-    const result = await client.api.paylink.retrieve(10883550);
+    const result = await client.api.paylink.retrieve(10891761);
     console.log('result', result.data[0]);
     expect(result.status).toEqual('success');
   });
@@ -28,13 +28,12 @@ describe('Paylink', () => {
     params.addField('surname', false, 'Surname');
 
     const result = await client.api.paylink.create(params);
-
     console.log('RESULT TEST: ', result);
     expect(result.status).toEqual('success');
   });
 
   test.skip('test delete', async () => {
-    const result = await client.api.paylink.remove(10883631);
+    const result = await client.api.paylink.remove(10891761);
     console.log('result', result);
     expect(result.status).toEqual('success');
   });

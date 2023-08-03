@@ -1,7 +1,7 @@
 import { Service } from '../../interface/service';
 import { GatewayRequest, GatewayResponse } from '../types/gateway';
 
-export class GatewayService extends Service<GatewayRequest, GatewayResponse> {
+export class GatewayService extends Service {
   constructor(instance: string, apiSecret: string) {
     super(instance, apiSecret, 'Gateway');
   }

@@ -1,7 +1,7 @@
 import { Service } from '../../interface/service';
 import { PaylinkRequest, PaylinkResponse } from '../types/paylink';
 
-export class PaylinkService extends Service<PaylinkRequest, PaylinkResponse> {
+export class PaylinkService extends Service {
   constructor(instance: string, apiSecret: string) {
     super(instance, apiSecret, 'Invoice');
   }

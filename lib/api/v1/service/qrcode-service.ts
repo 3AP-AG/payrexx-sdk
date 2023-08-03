@@ -1,7 +1,7 @@
 import { Service } from '../../interface/service';
 import { QrCodeRequest, QrCodeResponse } from '../types/qrcode';
 
-export class QrCodeService extends Service<QrCodeRequest, QrCodeResponse> {
+export class QrCodeService extends Service {
   constructor(instance: string, apiSecret: string) {
     super(instance, apiSecret, 'QrCode');
   }

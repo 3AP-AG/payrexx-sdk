@@ -1,10 +1,7 @@
 import { Service } from '../../interface/service';
 import { PaymentProviderResponse } from '../types/payment-provider';
 
-export class PaymentProviderService extends Service<
-  null,
-  PaymentProviderResponse
-> {
+export class PaymentProviderService extends Service {
   constructor(instance: string, apiSecret: string) {
     super(instance, apiSecret, 'PaymentProvider');
   }
