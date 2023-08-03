@@ -7,9 +7,16 @@ import { PaymentProviderResponse } from './api/v1/types/payment-provider';
 import {
   PaymentMethodResponse,
   PaymentMethodAllResponse,
+  PaymentMethodRequest,
 } from './api/v1/types/payment-method';
 
-export { PayrexxClient, PaylinkRequest, GatewayRequest, QrCodeRequest };
+export {
+  PayrexxClient,
+  PaylinkRequest,
+  GatewayRequest,
+  QrCodeRequest,
+  PaymentMethodRequest,
+};
 export type {
   Transaction,
   PaylinkResponse,

@@ -12,7 +12,7 @@ describe('Gateway', () => {
   });
 
   test.skip('test get', async () => {
-    const result = await client.api.gateway.retrieve(10891782);
+    const result = await client.api.gateway.retrieve(10898100);
     console.log('result', result);
     expect(result.status).toEqual('success');
   });
@@ -31,7 +31,7 @@ describe('Gateway', () => {
   });
 
   test.skip('test delete', async () => {
-    const result = await client.api.gateway.remove(10891782);
+    const result = await client.api.gateway.remove(10898100);
     console.log('result', result);
     expect(result.status).toEqual('success');
   });
