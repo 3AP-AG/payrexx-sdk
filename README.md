@@ -61,4 +61,4 @@ Do note that `Transaction` properties are not fully typed.
 
 ## Requirements
 
-This library requires minimum **Node v16.3.0** in order to run correctly.
+This library requires minimum **Node v18** in order to run correctly.
