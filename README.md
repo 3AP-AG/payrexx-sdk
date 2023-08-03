@@ -8,6 +8,7 @@ Supported **Payrexx API** functionalities:
 - **Gateway**
 - **QR code**
 - **Payment Provider**
+- **Payment Method**
 
 Unsupported **Payrexx API** functionalities:
 
@@ -37,13 +38,14 @@ const client = new PayrexxClient('PAYREXX_INSTANCE', 'API_SECRET')
 
 ### API
 
-API is grouped by the Payrexx functionalities.
+API is grouped by Payrexx functionalities:
 
 ```ts
 client.api.paylink
 client.api.gateway
 client.api.qrCode
 client.api.paymentProvider
+client.api.paymentMethod
 ```
 
 Use example - retrieve the paylink:
