@@ -11,7 +11,7 @@ describe('Payment provider', () => {
     client = new PayrexxClient(clientConfig.instance, clientConfig.secret);
   });
 
-  test.skip('test get all', async () => {
+  test('test get all', async () => {
     const result: PaymentProviderResponse =
       await client.api.paymentProvider.retrieveAll();
 

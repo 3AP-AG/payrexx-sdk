@@ -11,7 +11,7 @@ describe('Paylink', () => {
   });
 
   test.skip('test get', async () => {
-    const result = await client.api.paylink.retrieve(10891761);
+    const result = await client.api.paylink.retrieve(10898085);
     console.log('result', result.data[0]);
     expect(result.status).toEqual('success');
   });
@@ -34,7 +34,7 @@ describe('Paylink', () => {
   });
 
   test.skip('test delete', async () => {
-    const result = await client.api.paylink.remove(10891761);
+    const result = await client.api.paylink.remove(10898085);
     console.log('result', result);
     expect(result.status).toEqual('success');
   });
