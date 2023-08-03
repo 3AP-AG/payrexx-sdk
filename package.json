@@ -15,6 +15,9 @@
     "SDK",
     "API"
   ],
+  "engines": {
+    "node": ">=18.0.0 "
+  },
   "version": "0.3.2",
   "type": "module",
   "main": "./dist/payrexx-sdk.umd.cjs",
