@@ -10,7 +10,7 @@ export class PayoutService extends Service {
     return this.get();
   }
 
-  async retrieve(id: number, withDetails?: boolean): Promise<PayoutResponse> {
-    return withDetails ? this.get(`${id}/details`) : this.get(`${id}`);
+  async retrieve(id: number): Promise<PayoutResponse> {
+    return this.get(`${id}`);
   }
 }
