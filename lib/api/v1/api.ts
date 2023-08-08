@@ -2,6 +2,7 @@ import { GatewayService } from './service/gateway-service';
 import { PaylinkService } from './service/paylink-service';
 import { PaymentMethodService } from './service/payment-method-service';
 import { PaymentProviderService } from './service/payment-provider-service';
+import { PayoutService } from './service/payout-service';
 import { QrCodeService } from './service/qrcode-service';
 
 export default class Api {
@@ -10,6 +11,7 @@ export default class Api {
   public readonly qrCode: QrCodeService;
   public readonly paymentProvider: PaymentProviderService;
   public readonly paymentMethod: PaymentMethodService;
+  public readonly payout: PayoutService;
 
   constructor(instance: string, apiSecret: string) {
     this.paylink = new PaylinkService(instance, apiSecret);
@@ -17,5 +19,6 @@ export default class Api {
     this.qrCode = new QrCodeService(instance, apiSecret);
     this.paymentProvider = new PaymentProviderService(instance, apiSecret);
     this.paymentMethod = new PaymentMethodService(instance, apiSecret);
+    this.payout = new PayoutService(instance, apiSecret);
   }
 }

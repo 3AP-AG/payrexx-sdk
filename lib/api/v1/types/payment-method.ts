@@ -1,6 +1,6 @@
 import { Response } from '../../interface/response';
 
-interface PaymentMethodAllResponse extends Response {
+interface PaymentMethodsResponse extends Response {
   data: PaymentMethodData[];
 }
 
@@ -22,4 +22,4 @@ type OptionsByPsp = {
   currencies: string[];
 };
 
-export type { PaymentMethodResponse, PaymentMethodAllResponse };
+export type { PaymentMethodResponse, PaymentMethodsResponse };

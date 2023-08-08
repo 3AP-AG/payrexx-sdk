@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 import {
-  PaymentMethodAllResponse,
+  PaymentMethodsResponse,
   PaymentMethodResponse,
   PayrexxClient,
 } from '../lib';
@@ -26,7 +26,7 @@ describe('Payment method', () => {
 
   test.skip('test get all', async () => {
     console.log('INSTANCE', process.env.INSTANCE);
-    const result: PaymentMethodAllResponse =
+    const result: PaymentMethodsResponse =
       await client.api.paymentMethod.retrieveAll();
     console.log('RESULT', result);
     console.log('RESULT options_by_psp', result.data[0].options_by_psp);
