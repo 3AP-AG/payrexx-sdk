@@ -18,6 +18,13 @@ describe('Payout', () => {
     expect(result.status).toEqual('success');
   });
 
+  test.skip('test get payout with details', async () => {
+    const result: PayoutResponse = await client.api.payout.retrieve(1, true);
+
+    console.log('RESULT', result);
+    expect(result.status).toEqual('success');
+  });
+
   test.skip('test get payout', async () => {
     const result: PayoutResponse = await client.api.payout.retrieve(1);
 
