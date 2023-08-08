@@ -1,6 +1,6 @@
 import { Service } from '../../interface/service';
 import {
-  PaymentMethodAllResponse,
+  PaymentMethodsResponse,
   PaymentMethodResponse,
 } from '../types/payment-method';
 
@@ -13,7 +13,7 @@ export class PaymentMethodService extends Service {
    *
    * @returns All Active Payment Methods
    */
-  async retrieveAll(): Promise<PaymentMethodAllResponse> {
+  async retrieveAll(): Promise<PaymentMethodsResponse> {
     return this.get();
   }
 

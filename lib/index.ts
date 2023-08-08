@@ -6,8 +6,9 @@ import { QrCodeRequest, QrCodeResponse } from './api/v1/types/qrcode';
 import { PaymentProviderResponse } from './api/v1/types/payment-provider';
 import {
   PaymentMethodResponse,
-  PaymentMethodAllResponse,
+  PaymentMethodsResponse,
 } from './api/v1/types/payment-method';
+import { PayoutResponse, PayoutsResponse } from './api/v1/types/payout';
 
 export { PayrexxClient, PaylinkRequest, GatewayRequest, QrCodeRequest };
 export type {
@@ -17,5 +18,7 @@ export type {
   QrCodeResponse,
   PaymentProviderResponse,
   PaymentMethodResponse,
-  PaymentMethodAllResponse,
+  PaymentMethodsResponse,
+  PayoutResponse,
+  PayoutsResponse,
 };
