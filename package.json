@@ -18,7 +18,7 @@
   "engines": {
     "node": ">=18.0.0 "
   },
-  "version": "0.3.5",
+  "version": "0.3.6",
   "type": "module",
   "main": "./dist/payrexx-sdk.umd.cjs",
   "module": "./dist/payrexx-sdk.js",
