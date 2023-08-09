@@ -50,9 +50,9 @@ export class TransactionService extends Service {
    */
   async charge(
     id: number,
-    request: Partial<ChargeRequest>,
+    request?: Partial<ChargeRequest>,
   ): Promise<TransactionResponse> {
-    return this.post(request, `${id}`);
+    return this.post(request ? request : {}, `${id}`);
   }
 
   /**
