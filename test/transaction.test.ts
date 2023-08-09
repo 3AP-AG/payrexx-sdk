@@ -1,0 +1,31 @@
+import { beforeEach, describe, expect, test } from 'vitest';
+import { PayrexxClient, TransactionResponse } from '../lib';
+import clientConfig from './client-config';
+
+// THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
+
+describe('Payout', () => {
+  let client: PayrexxClient;
+
+  beforeEach(() => {
+    client = new PayrexxClient(clientConfig.instance, clientConfig.secret);
+  });
+
+  test.skip('test get transaction', async () => {
+    const result: TransactionResponse = await client.api.transaction.retrieve(
+      9088558,
+    );
+
+    console.log('RESULT', result);
+    console.log('PAYMENT: ', result.data[0].payment);
+    console.log('INVOICE: ', result.data[0].invoice);
+    console.log('CONTACT: ', result.data[0].contact);
+    expect(result.status).toEqual('success');
+  });
+
+  test.skip('test get all transactions', async () => {
+    const result = await client.api.transaction.retrieveAll();
+    console.log('RESULT', result);
+    expect(result.status).toEqual('success');
+  });
+});

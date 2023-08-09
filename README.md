@@ -9,6 +9,8 @@ Supported **Payrexx API** functionalities:
 - **QR code**
 - **Payment Provider**
 - **Payment Method**
+- **Payout**
+- **Transaction**
 
 Unsupported **Payrexx API** functionalities:
 
@@ -46,18 +48,33 @@ client.api.gateway
 client.api.qrCode
 client.api.paymentProvider
 client.api.paymentMethod
+client.api.payout
+client.api.transaction
 ```
 
-Use example - retrieve the paylink:
+#### Use examples
+
+##### Retrieve a paylink
 
 ```ts
 await client.api.paylink.retrieve(id);
 ```
 
-### Webhook
+##### Create a paylink
 
-If you are using webhook on the Payrexx and need TS type for the reponse you can use `Transaction` interface.
-Do note that `Transaction` properties are not fully typed.
+```ts
+const request = new PaylinkRequest('title', 'description', '123456', 'purpose', 1000, 'CHF');
+request.addField('forename', true, 'Name');
+request.addField('surname', false, 'Surname');
+
+const result = await client.api.paylink.create(request);
+```
+
+##### Delete a paylink
+
+```ts
+await client.api.paylink.remove(123456)
+```
 
 ## Requirements
 

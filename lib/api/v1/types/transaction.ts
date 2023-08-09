@@ -1,3 +1,82 @@
+import { Response } from '../../interface/response';
+
+interface TransactionResponse extends Response {
+  data: Partial<TransactionData>[];
+}
+
+/**
+ * Transaction documentation: https://developers.payrexx.com/docs/transaction
+ */
+type TransactionData = {
+  id: number;
+  uuid: string;
+  status: TransactionStatus;
+  time: string;
+  lang: string;
+  pageUuid: string;
+  payment: any;
+  psp: string;
+  pspId: number;
+  mode: string;
+  referenceId: string;
+  invoice: Invoice;
+  contact: Contact;
+  refundable: boolean;
+  partiallyRefundable: boolean;
+};
+
+type Invoice = {
+  currencyAlpha3: string;
+  products: Product[];
+  discount: Discount;
+  shippingAmount: number;
+  totalAmount: number;
+  customFields: Record<string, CustomField>;
+};
+
+type Product = {
+  quantity: number;
+  name: string;
+  amount: number;
+};
+
+type Discount = {
+  code: string;
+  percentage: number;
+  amount: number;
+};
+
+type CustomField = {
+  name: string;
+  value: string;
+};
+
+type Contact = {
+  id: number;
+  uuid: string;
+  company: string;
+  title: string;
+  firstname: string;
+  lastname: string;
+  street: string;
+  zip: string;
+  place: string;
+  country: string;
+  countryISO: string;
+  date_of_birth: string;
+  email: string;
+  phone: string;
+  delivery_company: string;
+  delivery_title: string;
+  delivery_firstname: string;
+  delivery_lastname: string;
+  delivery_street: string;
+  delivery_zip: string;
+  delivery_place: string;
+  delivery_country: string;
+  delivery_countryISO: string;
+};
+
 const transactionStatus = [
   'waiting',
   'confirmed',
@@ -10,83 +89,8 @@ const transactionStatus = [
   'partially-refunded',
   'chargeback',
   'error',
+  'uncaptured',
 ] as const;
 export type TransactionStatus = (typeof transactionStatus)[number];
 
-/**
- * Transaction documentation: https://developers.payrexx.com/docs/transaction
- */
-interface Transaction {
-  /**
-   * Internal transaction ID
-   */
-  id: number;
-  /**
-   * Public transaction ID
-   */
-  uuid: number | string;
-  /**
-   * Date and time of transaction creation. Format YYYY-MM-DD HH:MM:SS
-   */
-  time: string;
-  /**
-   * The status of the transaction
-   */
-  status: TransactionStatus;
-  /**
-   * ISO 639-1 of shopper language
-   */
-  lang: string;
-  /**
-   * Name of the payment service provider used
-   */
-  psp: string;
-  /**
-   * The ID of the payment service provider
-   */
-  pspId: number;
-  /**
-   * The amount of the transaction in the smallest unit of the transaction currency
-   */
-  amount: number;
-  /**
-   * The transaction fee charged by Payrexx
-   */
-  payrexx_fee: number;
-  /**
-   * The ID of the origin pre-authorization transaction
-   */
-  preAuthorizationId: number;
-  /**
-   * Payment mean as array
-   * 
-    -brand (lowercase string)
-
-    -cardNumber (truncated PAN) 
-    
-    -expiry (format: YY-MM) 
-   */
-  payment: [];
-  /**
-   * The reference which has been passed when creating a Gateway / Invoice.
-   */
-  referenceId: string;
-  // TODO: https://developers.payrexx.com/docs/metadata
-  metadata: any;
-  // TODO: https://developers.payrexx.com/docs/subscription-3
-  subscription: any;
-  // TODO: https://developers.payrexx.com/docs/invoice-1
-  invoice: any;
-  // TODO: https://developers.payrexx.com/docs/contact
-  contact: any;
-  /**
-   * Indicates whether refunds are possible
-   */
-  refundable: boolean;
-  /**
-   * Indicates whether partial refunds are possible
-   */
-  partiallyRefundable: boolean;
-}
-
-export type { Transaction };
+export type { TransactionResponse };
