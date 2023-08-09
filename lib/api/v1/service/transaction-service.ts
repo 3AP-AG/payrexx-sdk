@@ -39,19 +39,29 @@ export class TransactionService extends Service {
   /**
    * Charge a Pre-Authorized/Reserved Transaction
    * @param id The id of the transaction to charge
-   * @param form Form data
+   * @param request Request form:
    *
    * - **amount** - Amount for charge in cents
    *
    * - **purpose** - The purpose of the charge
    *
-   * - **referenceId** - Reference ID for charged transaction. Will be available in transaction webhook
+   * - **referenceId** - Reference id for charged transaction. Will be available in transaction webhook
    * @returns Response from the Payrexx
    */
   async charge(
     id: number,
-    form: Partial<ChargeRequest>,
+    request: Partial<ChargeRequest>,
   ): Promise<TransactionResponse> {
-    return this.post(form, `${id}`);
+    return this.post(request, `${id}`);
+  }
+
+  /**
+   * Refund a transaction
+   * @param id The id of the transaction to refund
+   * @param amount Custom amount to refund in cents. If not set, the whole amount will be refunded
+   * @returns Response from the Payrexx
+   */
+  async refund(id: number, amount?: number): Promise<TransactionResponse> {
+    return this.post({ amount }, `${id}/refund`);
   }
 }
