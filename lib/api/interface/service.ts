@@ -29,8 +29,18 @@ export abstract class Service {
     return this.handleResponse(result);
   }
 
-  protected async post<T, R extends Response>(request: T): Promise<R> {
-    const url = `${this.baseUrl}/?instance=${this.instance}`;
+  protected async post<T, R extends Response>(
+    request: T,
+    path?: string,
+  ): Promise<R> {
+    let url: string;
+
+    if (path) {
+      url = `${this.baseUrl}/${path}/?instance=${this.instance}`;
+    } else {
+      url = `${this.baseUrl}/?instance=${this.instance}`;
+    }
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {

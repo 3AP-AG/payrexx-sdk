@@ -200,5 +200,11 @@ type FieldValue = {
   name?: string[];
 };
 
+type ChargeRequest = {
+  amount: number;
+  purpose: string;
+  referenceId: string;
+};
+
 export { TransactionRequest };
-export type { TransactionResponse };
+export type { TransactionResponse, ChargeRequest };

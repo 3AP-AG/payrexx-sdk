@@ -1,5 +1,9 @@
 import { Service } from '../../interface/service';
-import { TransactionRequest, TransactionResponse } from '../types/transaction';
+import {
+  ChargeRequest,
+  TransactionRequest,
+  TransactionResponse,
+} from '../types/transaction';
 
 export class TransactionService extends Service {
   constructor(instance: string, apiSecret: string) {
@@ -24,11 +28,30 @@ export class TransactionService extends Service {
   }
 
   /**
-   * Create a transaction
+   * Create a cash transaction
    * @param request Form data for creation of transaction
    * @returns Response from the Payrexx
    */
   async create(request: TransactionRequest): Promise<TransactionResponse> {
     return this.post(request);
+  }
+
+  /**
+   * Charge a Pre-Authorized/Reserved Transaction
+   * @param id The id of the transaction to charge
+   * @param form Form data
+   *
+   * - **amount** - Amount for charge in cents
+   *
+   * - **purpose** - The purpose of the charge
+   *
+   * - **referenceId** - Reference ID for charged transaction. Will be available in transaction webhook
+   * @returns Response from the Payrexx
+   */
+  async charge(
+    id: number,
+    form: Partial<ChargeRequest>,
+  ): Promise<TransactionResponse> {
+    return this.post(form, `${id}`);
   }
 }

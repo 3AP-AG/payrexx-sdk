@@ -2,6 +2,7 @@ import { PayrexxClient } from './api/client';
 import {
   TransactionResponse,
   TransactionRequest,
+  ChargeRequest,
 } from './api/v1/types/transaction';
 import { PaylinkRequest, PaylinkResponse } from './api/v1/types/paylink';
 import { GatewayRequest, GatewayResponse } from './api/v1/types/gateway';
@@ -30,4 +31,5 @@ export type {
   PayoutResponse,
   PayoutsResponse,
   TransactionResponse,
+  ChargeRequest,
 };
