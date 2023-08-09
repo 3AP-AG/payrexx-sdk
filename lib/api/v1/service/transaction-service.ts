@@ -64,4 +64,35 @@ export class TransactionService extends Service {
   async refund(id: number, amount?: number): Promise<TransactionResponse> {
     return this.post({ amount }, `${id}/refund`);
   }
+
+  /**
+   * Capture a Transaction
+   * @param id The id of the transaction to capture
+   * @returns Response from the Payrexx
+   */
+  async capture(id: number): Promise<TransactionResponse> {
+    return this.post({}, `${id}/capture`);
+  }
+
+  /**
+   * Send mail receipt
+   * @param id The id of the transaction with receipt
+   * @param recipient Email address of recipient
+   * @returns Response from the Payrexx
+   */
+  async sendMailReceipt(
+    id: number,
+    recipient: string,
+  ): Promise<TransactionResponse> {
+    return this.post({ recipient }, `${id}/receipt`);
+  }
+
+  /**
+   * Delete a reserved transaction
+   * @param id The id of reserved transaction to cancel/delete
+   * @returns Response from the Payrexx
+   */
+  async remove(id: number): Promise<TransactionResponse> {
+    return this.delete(`${id}`);
+  }
 }

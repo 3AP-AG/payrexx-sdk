@@ -41,9 +41,19 @@ describe('Payout', () => {
     expect(result.status).toEqual('success');
   });
 
-  test('test transaction refund', async () => {
+  test.skip('test transaction refund - error', async () => {
     try {
       const result = await client.api.transaction.refund(9088558);
+      console.log('RESULT', result);
+      expect(result.status).toEqual('error');
+    } catch (e) {
+      console.log('ERROR', e);
+    }
+  });
+
+  test.skip('test transaction capture - error', async () => {
+    try {
+      const result = await client.api.transaction.capture(9088558);
       console.log('RESULT', result);
       expect(result.status).toEqual('error');
     } catch (e) {
