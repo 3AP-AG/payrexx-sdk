@@ -4,6 +4,7 @@ import { PaymentMethodService } from './service/payment-method-service';
 import { PaymentProviderService } from './service/payment-provider-service';
 import { PayoutService } from './service/payout-service';
 import { QrCodeService } from './service/qrcode-service';
+import { TransactionService } from './service/transaction-service';
 
 export default class Api {
   public readonly paylink: PaylinkService;
@@ -12,6 +13,7 @@ export default class Api {
   public readonly paymentProvider: PaymentProviderService;
   public readonly paymentMethod: PaymentMethodService;
   public readonly payout: PayoutService;
+  public readonly transaction: TransactionService;
 
   constructor(instance: string, apiSecret: string) {
     this.paylink = new PaylinkService(instance, apiSecret);
@@ -20,5 +22,6 @@ export default class Api {
     this.paymentProvider = new PaymentProviderService(instance, apiSecret);
     this.paymentMethod = new PaymentMethodService(instance, apiSecret);
     this.payout = new PayoutService(instance, apiSecret);
+    this.transaction = new TransactionService(instance, apiSecret);
   }
 }

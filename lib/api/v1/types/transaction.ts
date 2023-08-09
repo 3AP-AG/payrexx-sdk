@@ -1,3 +1,97 @@
+import { Response } from '../../interface/response';
+
+/**
+ * Some properties are available only when doing GET and others when doing POST requests.
+ * Consult with Payrexx [API](https://developers.payrexx.com/reference/rest-api) if you need assistance.
+ */
+interface TransactionResponse extends Response {
+  data: Partial<TransactionData>[];
+}
+
+/**
+ * Transaction documentation: https://developers.payrexx.com/docs/transaction
+ */
+type TransactionData = {
+  id: number;
+  uuid: string;
+  status: TransactionStatus;
+  time: string;
+  lang: string;
+  pageUuid: string;
+  payment: any;
+  psp: string;
+  pspId: number;
+  mode: string;
+  referenceId: string;
+  invoice: Partial<Invoice>;
+  contact: Contact;
+  refundable: boolean;
+  partiallyRefundable: boolean;
+  subscription: any;
+  metadata: any;
+};
+
+type Invoice = {
+  number: string;
+  currency: string;
+  products: Partial<Product>[];
+  discount: Discount;
+  shippingAmount: number;
+  totalAmount: number;
+  amount: number;
+  customFields: Record<string, CustomField>;
+  referenceId: string;
+  googleAnalyticProducts: any;
+  paymentRequestId: number;
+  paymentLink: any;
+};
+
+type Product = {
+  quantity: number;
+  name: string;
+  amount: number;
+  sku: number;
+  vatRate: number;
+};
+
+type Discount = {
+  code: string;
+  percentage: number;
+  amount: number;
+};
+
+type CustomField = {
+  name: string;
+  value: string;
+  type?: string;
+};
+
+type Contact = {
+  id: number;
+  uuid: string;
+  company: string;
+  title: string;
+  firstname: string;
+  lastname: string;
+  street: string;
+  zip: string;
+  place: string;
+  country: string;
+  countryISO: string;
+  date_of_birth: string;
+  email: string;
+  phone: string;
+  delivery_company: string;
+  delivery_title: string;
+  delivery_firstname: string;
+  delivery_lastname: string;
+  delivery_street: string;
+  delivery_zip: string;
+  delivery_place: string;
+  delivery_country: string;
+  delivery_countryISO: string;
+};
+
 const transactionStatus = [
   'waiting',
   'confirmed',
@@ -10,83 +104,107 @@ const transactionStatus = [
   'partially-refunded',
   'chargeback',
   'error',
+  'uncaptured',
 ] as const;
 export type TransactionStatus = (typeof transactionStatus)[number];
 
-/**
- * Transaction documentation: https://developers.payrexx.com/docs/transaction
- */
-interface Transaction {
-  /**
-   * Internal transaction ID
-   */
-  id: number;
-  /**
-   * Public transaction ID
-   */
-  uuid: number | string;
-  /**
-   * Date and time of transaction creation. Format YYYY-MM-DD HH:MM:SS
-   */
-  time: string;
-  /**
-   * The status of the transaction
-   */
-  status: TransactionStatus;
-  /**
-   * ISO 639-1 of shopper language
-   */
-  lang: string;
-  /**
-   * Name of the payment service provider used
-   */
-  psp: string;
-  /**
-   * The ID of the payment service provider
-   */
-  pspId: number;
-  /**
-   * The amount of the transaction in the smallest unit of the transaction currency
-   */
-  amount: number;
-  /**
-   * The transaction fee charged by Payrexx
-   */
-  payrexx_fee: number;
-  /**
-   * The ID of the origin pre-authorization transaction
-   */
-  preAuthorizationId: number;
-  /**
-   * Payment mean as array
-   * 
-    -brand (lowercase string)
+class TransactionRequest {
+  private amount: number;
+  private currency: string;
+  private vatRate?: number;
+  private purpose?: string;
+  private fields?: Partial<Record<FieldKey, FieldValue>>;
 
-    -cardNumber (truncated PAN) 
-    
-    -expiry (format: YY-MM) 
-   */
-  payment: [];
   /**
-   * The reference which has been passed when creating a Gateway / Invoice.
+   * Transaction create request
+   * @param amount Amount for charge in cents.
+   * @param currency Currency of payment (ISO code)
    */
-  referenceId: string;
-  // TODO: https://developers.payrexx.com/docs/metadata
-  metadata: any;
-  // TODO: https://developers.payrexx.com/docs/subscription-3
-  subscription: any;
-  // TODO: https://developers.payrexx.com/docs/invoice-1
-  invoice: any;
-  // TODO: https://developers.payrexx.com/docs/contact
-  contact: any;
+  constructor(amount: number, currency: string) {
+    this.amount = amount;
+    this.currency = currency;
+  }
+
+  public getAmount() {
+    return this.amount;
+  }
+
   /**
-   * Indicates whether refunds are possible
+   *
+   * @param amount Amount for charge in cents.
    */
-  refundable: boolean;
+  public setAmount(amount: number) {
+    this.amount = amount;
+  }
+
+  public getCurrency() {
+    return this.currency;
+  }
+
   /**
-   * Indicates whether partial refunds are possible
+   *
+   * @param currency Currency of payment (ISO code)
    */
-  partiallyRefundable: boolean;
+  public setCurrency(currency: string) {
+    this.currency = currency;
+  }
+
+  public getVatRate() {
+    return this.vatRate;
+  }
+
+  /**
+   *
+   * @param vatRate VAT Rate Percentage
+   */
+  public setVatRate(vatRate: number) {
+    this.vatRate = vatRate;
+  }
+
+  public getPurpose() {
+    return this.purpose;
+  }
+
+  /**
+   *
+   * @param purpose The purpose of the payment
+   */
+  public setPurpose(purpose: string) {
+    this.purpose = purpose;
+  }
+
+  public getFields() {
+    return this.fields;
+  }
+
+  /**
+   * The contact data fields which should be stored along with transaction
+   * @param type The type of field
+   * @param value Value of the field
+   * @param name Name of the field
+   */
+  public addField(type: FieldKey, value: string, name?: string[]) {
+    const fields = { ...this.fields };
+    fields[type] = {
+      value,
+      name,
+    };
+    this.fields = { ...fields };
+  }
 }
 
-export type { Transaction };
+type FieldKey = 'email' | 'forename' | 'surname';
+
+type FieldValue = {
+  value: string;
+  name?: string[];
+};
+
+type ChargeRequest = {
+  amount: number;
+  purpose: string;
+  referenceId: string;
+};
+
+export { TransactionRequest };
+export type { TransactionResponse, ChargeRequest };

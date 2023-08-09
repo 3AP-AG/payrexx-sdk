@@ -34,7 +34,7 @@ describe('Paylink', () => {
   });
 
   test.skip('test delete', async () => {
-    const result = await client.api.paylink.remove(10891761);
+    const result = await client.api.paylink.remove(10982974);
     console.log('result', result);
     expect(result.status).toEqual('success');
   });

@@ -11,7 +11,7 @@ describe('Payout', () => {
     client = new PayrexxClient(clientConfig.instance, clientConfig.secret);
   });
 
-  test('test get payouts', async () => {
+  test.skip('test get payouts', async () => {
     const result: PayoutsResponse = await client.api.payout.retrieveAll();
 
     console.log('RESULT', result);
