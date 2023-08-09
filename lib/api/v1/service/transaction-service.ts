@@ -1,5 +1,5 @@
 import { Service } from '../../interface/service';
-import { TransactionResponse } from '../types/transaction';
+import { TransactionRequest, TransactionResponse } from '../types/transaction';
 
 export class TransactionService extends Service {
   constructor(instance: string, apiSecret: string) {
@@ -21,5 +21,14 @@ export class TransactionService extends Service {
    */
   async retrieveAll(): Promise<TransactionResponse> {
     return this.get();
+  }
+
+  /**
+   * Create a transaction
+   * @param request Form data for creation of transaction
+   * @returns Response from the Payrexx
+   */
+  async create(request: TransactionRequest): Promise<TransactionResponse> {
+    return this.post(request);
   }
 }
