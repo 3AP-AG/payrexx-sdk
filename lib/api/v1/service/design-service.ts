@@ -40,4 +40,14 @@ export class DesignService extends Service {
   async remove(id: string): Promise<DesignResponse> {
     return this.deleteWithData({ uuid: id });
   }
+
+  /**
+   * Update a design
+   * @param id UUID of the design to update
+   * @param request Form data to update design
+   * @returns Updated design
+   */
+  async update(id: string, request: DesignRequest): Promise<DesignResponse> {
+    return this.post({ ...request, uuid: id }, id);
+  }
 }

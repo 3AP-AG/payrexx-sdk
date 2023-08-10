@@ -11,6 +11,7 @@ Supported **Payrexx API** functionalities:
 - **Payment Method**
 - **Payout**
 - **Transaction**
+- **Design**
 
 Unsupported **Payrexx API** functionalities:
 
@@ -50,6 +51,7 @@ client.api.paymentProvider
 client.api.paymentMethod
 client.api.payout
 client.api.transaction
+client.api.design
 ```
 
 #### Use examples
@@ -63,9 +65,9 @@ await client.api.paylink.retrieve(id);
 ##### Create a paylink
 
 ```ts
-const request = new PaylinkRequest('title', 'description', '123456', 'purpose', 1000, 'CHF');
+const request = new PaylinkRequest('title', 'description', 'referenceId', 'purpose', amount, 'currency');
 request.addField('forename', true, 'Name');
-request.addField('surname', false, 'Surname');
+request.addField('surname', false, 'Last Name');
 
 const result = await client.api.paylink.create(request);
 ```
@@ -73,7 +75,7 @@ const result = await client.api.paylink.create(request);
 ##### Delete a paylink
 
 ```ts
-await client.api.paylink.remove(123456)
+await client.api.paylink.remove(id)
 ```
 
 ## Requirements
