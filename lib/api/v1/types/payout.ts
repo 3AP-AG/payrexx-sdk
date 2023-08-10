@@ -1,11 +1,11 @@
 import { Response } from '../../interface/response';
 
 interface PayoutResponse extends Response {
-  data: Partial<PayoutData>;
+  data: PayoutData;
 }
 
 interface PayoutsResponse extends Response {
-  data: Partial<PayoutData>[];
+  data: PayoutData[];
 }
 
 type PayoutData = {

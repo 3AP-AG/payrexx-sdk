@@ -5,7 +5,7 @@ import { Response } from '../../interface/response';
  * Consult with Payrexx [API](https://developers.payrexx.com/reference/rest-api) if you need assistance.
  */
 interface TransactionResponse extends Response {
-  data: Partial<TransactionData>[];
+  data: TransactionData[];
 }
 
 /**

@@ -13,6 +13,7 @@ import {
   PaymentMethodsResponse,
 } from './api/v1/types/payment-method';
 import { PayoutResponse, PayoutsResponse } from './api/v1/types/payout';
+import { DesignResponse, DesignRequest } from './api/v1/types/design';
 
 export {
   PayrexxClient,
@@ -20,6 +21,7 @@ export {
   GatewayRequest,
   QrCodeRequest,
   TransactionRequest,
+  DesignRequest,
 };
 export type {
   PaylinkResponse,
@@ -32,4 +34,5 @@ export type {
   PayoutsResponse,
   TransactionResponse,
   ChargeRequest,
+  DesignResponse,
 };

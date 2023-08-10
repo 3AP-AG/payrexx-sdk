@@ -1,3 +1,4 @@
+import { DesignService } from './service/design-service';
 import { GatewayService } from './service/gateway-service';
 import { PaylinkService } from './service/paylink-service';
 import { PaymentMethodService } from './service/payment-method-service';
@@ -14,6 +15,7 @@ export default class Api {
   public readonly paymentMethod: PaymentMethodService;
   public readonly payout: PayoutService;
   public readonly transaction: TransactionService;
+  public readonly design: DesignService;
 
   constructor(instance: string, apiSecret: string) {
     this.paylink = new PaylinkService(instance, apiSecret);
@@ -23,5 +25,6 @@ export default class Api {
     this.paymentMethod = new PaymentMethodService(instance, apiSecret);
     this.payout = new PayoutService(instance, apiSecret);
     this.transaction = new TransactionService(instance, apiSecret);
+    this.design = new DesignService(instance, apiSecret);
   }
 }

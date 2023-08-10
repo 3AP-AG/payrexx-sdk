@@ -1,7 +1,7 @@
 import { Response } from '../../interface/response';
 
 interface QrCodeResponse extends Response {
-  data: Partial<QrCodeData>;
+  data: QrCodeData;
 }
 
 type QrCodeData = {
