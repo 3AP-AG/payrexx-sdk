@@ -1,7 +1,7 @@
 import { Response } from '../../interface/response';
 
 interface PaylinkResponse extends Response {
-  data: Partial<PaylinkData>[];
+  data: PaylinkData[];
 }
 
 type PaylinkData = {

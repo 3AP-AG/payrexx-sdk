@@ -1,7 +1,7 @@
 import { Response } from '../../interface/response';
 
 interface GatewayResponse extends Response {
-  data: Partial<GatewayData>[];
+  data: GatewayData[];
 }
 
 type GatewayData = {

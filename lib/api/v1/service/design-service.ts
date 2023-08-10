@@ -15,15 +15,6 @@ export class DesignService extends Service {
   }
 
   /**
-   * Retrieve a design
-   * @param id The id of design to be retrieved
-   * @returns Design
-   */
-  async retrieve(id: string): Promise<DesignResponse> {
-    return this.get(id);
-  }
-
-  /**
    * Create a design
    * @param request Form data for creation of design
    * @returns Newly created design

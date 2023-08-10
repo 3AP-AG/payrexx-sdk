@@ -1,7 +1,7 @@
 import { Response } from '../../interface/response';
 
 interface DesignResponse extends Response {
-  data: Partial<DesignData>[];
+  data: DesignData[];
 }
 
 type DesignData = {

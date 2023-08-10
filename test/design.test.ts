@@ -17,12 +17,6 @@ describe('Design', () => {
     expect(result.status).toEqual('success');
   });
 
-  test.skip('test get one', async () => {
-    const result: DesignResponse = await client.api.design.retrieve('f4d812a9');
-    console.log('RESULT', result);
-    expect(result.status).toEqual('success');
-  });
-
   test.skip('test creation', async () => {
     const request = new DesignRequest('TEST_DESIGN');
     const result: DesignResponse = await client.api.design.create(request);
