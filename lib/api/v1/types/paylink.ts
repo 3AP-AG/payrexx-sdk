@@ -193,7 +193,7 @@ class PaylinkRequest {
   }
 
   /**
-   * @param psp The psp which should be used for the payment. (Can be an array of integers.)
+   * @param psp The psp which should be used for the payment. Can be an array of integers.
    */
   setPsp(psp: string | number[]) {
     this.psp = psp;

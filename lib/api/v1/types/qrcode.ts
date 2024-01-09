@@ -15,7 +15,7 @@ type QrCodeData = {
 class QrCodeRequest {
   /**
    * Create a QR Code request
-   * @param webshopUrl An URL where the your customer has to be redirected when they scanned your QR Code.
+   * @param webshopUrl An URL where your customer will be redirected to when they scanned your QR Code.
    */
   constructor(private webshopUrl: string) {}
 
