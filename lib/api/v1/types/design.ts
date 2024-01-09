@@ -36,7 +36,6 @@ type DesignData = {
 };
 
 class DesignRequest {
-  private name: string;
   private default?: number;
   private fontFamily?: string;
   private fontSize?: number;
@@ -65,9 +64,7 @@ class DesignRequest {
    * Create a request for design
    * @param name Name of the design
    */
-  constructor(name: string) {
-    this.name = name;
-  }
+  constructor(private name: string) {}
 
   public getName() {
     return this.name;
