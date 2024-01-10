@@ -24,7 +24,7 @@ export abstract class Service {
 
     const response = await fetch(url);
 
-    const result: T = await response.json();
+    const result: T = (await response.json()) as T;
 
     return this.handleResponse(result);
   }
@@ -49,7 +49,7 @@ export abstract class Service {
       body: this.authHelper.buildPayloadWithSignature(request),
     });
 
-    const result: R = await response.json();
+    const result: R = (await response.json()) as R;
 
     return this.handleResponse(result);
   }
@@ -61,7 +61,7 @@ export abstract class Service {
       body: this.authHelper.buildPayloadWithSignature(''),
     });
 
-    const result: T = await response.json();
+    const result: T = (await response.json()) as T;
 
     return this.handleResponse(result);
   }
@@ -73,7 +73,7 @@ export abstract class Service {
       body: this.authHelper.buildPayloadWithSignature(data),
     });
 
-    const result: T = await response.json();
+    const result: T = (await response.json()) as T;
 
     return this.handleResponse(result);
   }
