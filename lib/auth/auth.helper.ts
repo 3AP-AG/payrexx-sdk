@@ -7,7 +7,7 @@ export class AuthHelper {
     this.apiSecret = apiSecret;
   }
 
-  buildSiganture() {
+  buildSignature() {
     return createHmac('sha256', this.apiSecret).update('').digest('base64');
   }
 

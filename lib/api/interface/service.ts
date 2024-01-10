@@ -14,7 +14,7 @@ export abstract class Service {
 
   protected async get<T extends Response>(path?: string): Promise<T> {
     let url: string;
-    const signature = this.authHelper.buildSiganture();
+    const signature = this.authHelper.buildSignature();
 
     if (path) {
       url = `${this.baseUrl}/${path}/?instance=${this.instance}&ApiSignature=${signature}`;
