@@ -25,18 +25,38 @@ describe('Design', () => {
   });
 
   test.skip('test delete', async () => {
-    const result: DesignResponse = await client.api.design.remove('db694eb9');
+    // GIVEN
+    const request = new DesignRequest('TEST_DESIGN');
+    const createdDesign: DesignResponse = await client.api.design.create(
+      request,
+    );
+    const id = createdDesign.data[0].uuid;
+
+    // WHEN
+    const result: DesignResponse = await client.api.design.remove(id);
+
+    // THEN
     console.log('RESULT', result);
     expect(result.status).toEqual('success');
   });
 
   test.skip('test update', async () => {
-    const request = new DesignRequest('TEST_DESIGN');
-    request.setFontFamily('Georgia');
-    const result: DesignResponse = await client.api.design.update(
-      'db694eb9',
-      request,
+    // GIVEN
+    const createRequest = new DesignRequest('TEST_DESIGN');
+    const createdDesign: DesignResponse = await client.api.design.create(
+      createRequest,
     );
+    const id = createdDesign.data[0].uuid;
+
+    // WHEN
+    const updateRequest = new DesignRequest('TEST_DESIGN');
+    updateRequest.setFontFamily('Georgia');
+    const result: DesignResponse = await client.api.design.update(
+      id,
+      updateRequest,
+    );
+
+    // THEN
     console.log('RESULT', result);
     expect(result.status).toEqual('success');
   });
