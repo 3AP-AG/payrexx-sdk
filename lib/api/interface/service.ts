@@ -3,11 +3,13 @@ import { Response } from './response';
 
 export abstract class Service {
   protected readonly baseUrl: string;
-  protected readonly instance: string;
   protected readonly authHelper: AuthHelper;
 
-  constructor(instance: string, apiSecret: string, endpoint: string) {
-    this.instance = instance;
+  protected constructor(
+    protected readonly instance: string,
+    apiSecret: string,
+    endpoint: string,
+  ) {
     this.authHelper = new AuthHelper(apiSecret);
     this.baseUrl = `https://api.payrexx.com/v1.0/${endpoint}`;
   }

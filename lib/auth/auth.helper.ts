@@ -2,10 +2,7 @@ import { createHmac } from 'node:crypto';
 import QueryString from 'qs';
 
 export class AuthHelper {
-  private readonly apiSecret: string;
-  constructor(apiSecret: string) {
-    this.apiSecret = apiSecret;
-  }
+  constructor(private readonly apiSecret: string) {}
 
   buildSignature() {
     return createHmac('sha256', this.apiSecret).update('').digest('base64');

@@ -69,12 +69,6 @@ type ResponseField = {
 };
 
 class PaylinkRequest {
-  private title: string | string[];
-  private description: string;
-  private referenceId: string;
-  private purpose: string | string[];
-  private amount: number;
-  private currency: string;
   private vatRate?: number;
   private psp?: string | number[];
   private pm?: string[];
@@ -103,20 +97,13 @@ class PaylinkRequest {
    * @param currency The corresponding payment currency for the amount (use ISO codes)
    */
   constructor(
-    title: string | string[],
-    description: string,
-    referenceId: string,
-    purpose: string | string[],
-    amount: number,
-    currency: string,
-  ) {
-    this.title = title;
-    this.description = description;
-    this.referenceId = referenceId;
-    this.purpose = purpose;
-    this.amount = amount;
-    this.currency = currency;
-  }
+    private title: string | string[],
+    private description: string,
+    private referenceId: string,
+    private purpose: string | string[],
+    private amount: number,
+    private currency: string,
+  ) {}
 
   getTitle() {
     return this.title;
@@ -206,7 +193,7 @@ class PaylinkRequest {
   }
 
   /**
-   * @param psp The psp which should be used for the payment. (Can be an array of integers.)
+   * @param psp The psp which should be used for the payment. Can be an array of integers.
    */
   setPsp(psp: string | number[]) {
     this.psp = psp;
