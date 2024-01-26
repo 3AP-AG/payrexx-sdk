@@ -40,11 +40,8 @@ export class TransactionService extends Service {
    * Charge a Pre-Authorized/Reserved Transaction
    * @param id The id of the transaction to charge
    * @param request Request form:
-   *
    * - **amount** - Amount for charge in cents
-   *
    * - **purpose** - The purpose of the charge
-   *
    * - **referenceId** - Reference id for charged transaction. Will be available in transaction webhook
    * @returns Response from the Payrexx
    */

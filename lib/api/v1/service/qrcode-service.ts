@@ -34,7 +34,7 @@ export class QrCodeService extends Service {
   }
 
   /**
-   * Delete a QR code ccan
+   * Delete a QR code scan
    * @param sessionId The sessionId of the qr code scan to delete
    * @returns QrCodeResponse
    */

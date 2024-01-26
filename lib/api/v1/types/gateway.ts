@@ -61,8 +61,6 @@ type ResponseField = {
  * For detailed information visit https://developers.payrexx.com/reference/create-a-gateway
  */
 class GatewayRequest {
-  private amount: number;
-  private currency: string;
   private vatRate?: number;
   private sku?: string;
   private purpose?: string;
@@ -94,10 +92,10 @@ class GatewayRequest {
    * @param amount Amount of payment in cents
    * @param currency Currency of payment (ISO code)
    */
-  constructor(amount: number, currency: string) {
-    this.amount = amount;
-    this.currency = currency;
-  }
+  constructor(
+    private amount: number,
+    private currency: string,
+  ) {}
 
   public getAmount() {
     return this.amount;

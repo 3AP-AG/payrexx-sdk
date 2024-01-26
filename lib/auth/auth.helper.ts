@@ -3,10 +3,7 @@ import Base64 from 'crypto-js/enc-base64';
 import QueryString from 'qs';
 
 export class AuthHelper {
-  private readonly apiSecret: string;
-  constructor(apiSecret: string) {
-    this.apiSecret = apiSecret;
-  }
+  constructor(private readonly apiSecret: string) {}
 
   buildSiganture() {
     return Base64.stringify(HmacSHA256('', this.apiSecret));

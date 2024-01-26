@@ -36,7 +36,6 @@ type DesignData = {
 };
 
 class DesignRequest {
-  private name: string;
   private default?: number;
   private fontFamily?: string;
   private fontSize?: number;
@@ -65,9 +64,7 @@ class DesignRequest {
    * Create a request for design
    * @param name Name of the design
    */
-  constructor(name: string) {
-    this.name = name;
-  }
+  constructor(private name: string) {}
 
   public getName() {
     return this.name;
@@ -87,7 +84,7 @@ class DesignRequest {
 
   /**
    *
-   * @param value Set to 1 if design should be default design. Set to 0 otherwise
+   * @param value Set to 1 if this design should be the default design. Set to 0 otherwise.
    */
   public setDefault(value: number) {
     this.default = value;
@@ -360,7 +357,7 @@ class DesignRequest {
   /**
    *
    * @param headerImageCustomLink Link of the header image. Use language ID as array key. Array key 0 or datatype 'string' will be handled as the default value
-   * (Will be used for each activated frontend language)
+   * (will be used for each activated frontend language)
    */
   public setHeaderImageCustomLink(headerImageCustomLink: any) {
     this.headerImageCustomLink = headerImageCustomLink;
