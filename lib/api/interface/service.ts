@@ -16,7 +16,7 @@ export abstract class Service {
 
   protected async get<T extends Response>(path?: string): Promise<T> {
     let url: string;
-    const signature = this.authHelper.buildSiganture();
+    const signature = this.authHelper.buildSignature();
 
     if (path) {
       url = `${this.baseUrl}/${path}/?instance=${this.instance}&ApiSignature=${signature}`;
@@ -26,7 +26,7 @@ export abstract class Service {
 
     const response = await fetch(url);
 
-    const result: T = await response.json();
+    const result: T = (await response.json()) as T;
 
     return this.handleResponse(result);
   }
@@ -51,7 +51,7 @@ export abstract class Service {
       body: this.authHelper.buildPayloadWithSignature(request),
     });
 
-    const result: R = await response.json();
+    const result: R = (await response.json()) as R;
 
     return this.handleResponse(result);
   }
@@ -63,7 +63,7 @@ export abstract class Service {
       body: this.authHelper.buildPayloadWithSignature(''),
     });
 
-    const result: T = await response.json();
+    const result: T = (await response.json()) as T;
 
     return this.handleResponse(result);
   }
@@ -75,7 +75,7 @@ export abstract class Service {
       body: this.authHelper.buildPayloadWithSignature(data),
     });
 
-    const result: T = await response.json();
+    const result: T = (await response.json()) as T;
 
     return this.handleResponse(result);
   }

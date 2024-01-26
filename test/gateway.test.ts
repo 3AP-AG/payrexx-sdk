@@ -12,6 +12,7 @@ describe('Gateway', () => {
   });
 
   test.skip('test get', async () => {
+    // create a gateway first with next test to get an id
     const result = await client.api.gateway.retrieve(10891782);
     console.log('result', result);
     expect(result.status).toEqual('success');
@@ -28,10 +29,12 @@ describe('Gateway', () => {
 
     console.log('RESULT TEST: ', result);
     expect(result.status).toEqual('success');
+    console.log(`Created gateway id: ${result.data[0].id}`);
   });
 
   test.skip('test delete', async () => {
-    const result = await client.api.gateway.remove(10891782);
+    // create a gateway first with next test to get an id
+    const result = await client.api.gateway.remove(13796033);
     console.log('result', result);
     expect(result.status).toEqual('success');
   });

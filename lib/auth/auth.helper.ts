@@ -1,12 +1,11 @@
-import { HmacSHA256 } from 'crypto-js';
-import Base64 from 'crypto-js/enc-base64';
+import { createHmac } from 'node:crypto';
 import QueryString from 'qs';
 
 export class AuthHelper {
   constructor(private readonly apiSecret: string) {}
 
-  buildSiganture() {
-    return Base64.stringify(HmacSHA256('', this.apiSecret));
+  buildSignature() {
+    return createHmac('sha256', this.apiSecret).update('').digest('base64');
   }
 
   buildPayloadWithSignature(params: any) {
@@ -16,7 +15,9 @@ export class AuthHelper {
       .replace(/\(/g, '%28')
       .replace(/\)/g, '%29')
       .replace(/\*/g, '%2A');
-    const signature = Base64.stringify(HmacSHA256(queryStr, this.apiSecret));
+    const signature = createHmac('sha256', this.apiSecret)
+      .update(queryStr)
+      .digest('base64');
 
     return QueryString.stringify({ ...params, ApiSignature: signature });
   }
