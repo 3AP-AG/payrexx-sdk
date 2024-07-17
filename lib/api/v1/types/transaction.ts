@@ -1,4 +1,4 @@
-import { Response } from "../../interface/response";
+import { Response } from '../../interface/response';
 
 /**
  * Some properties are available only when doing GET and others when doing POST requests.
@@ -93,18 +93,18 @@ type Contact = {
 };
 
 const transactionStatus = [
-  "waiting",
-  "confirmed",
-  "cancelled",
-  "declined",
-  "authorized",
-  "reserved",
-  "refunded",
-  "refund_pending",
-  "partially-refunded",
-  "chargeback",
-  "error",
-  "uncaptured",
+  'waiting',
+  'confirmed',
+  'cancelled',
+  'declined',
+  'authorized',
+  'reserved',
+  'refunded',
+  'refund_pending',
+  'partially-refunded',
+  'chargeback',
+  'error',
+  'uncaptured',
 ] as const;
 export type TransactionStatus = (typeof transactionStatus)[number];
 
@@ -193,7 +193,7 @@ class TransactionRequest {
   }
 }
 
-type FieldKey = "email" | "forename" | "surname";
+type FieldKey = 'email' | 'forename' | 'surname';
 
 type FieldValue = {
   value: string;
