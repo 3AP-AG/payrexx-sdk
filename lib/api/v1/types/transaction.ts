@@ -50,7 +50,7 @@ type Product = {
   quantity: number;
   name: string;
   amount: number;
-  sku: number;
+  sku: string;
   vatRate: number;
 };
 
