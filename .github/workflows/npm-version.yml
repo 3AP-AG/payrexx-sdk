@@ -17,9 +17,9 @@ jobs:
           fetch-depth: '0'
           token: ${{ secrets.PAT_TOKEN }}
       - name: Node setup
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
       - name: Install dependencies
         run: npm ci
       - name: Setup git config
