@@ -5,7 +5,12 @@ import {
   ChargeRequest,
 } from './api/types/transaction';
 import { PaylinkRequest, PaylinkResponse } from './api/types/paylink';
-import { GatewayRequest, GatewayResponse } from './api/types/gateway';
+import {
+  GatewayCreateRequest,
+  GatewayCreateResponse,
+  GatewayRetrieveResponse,
+  GatewayDeleteResponse,
+} from './api/types/gateway';
 import { QrCodeRequest, QrCodeResponse } from './api/types/qrcode';
 import { PaymentProviderResponse } from './api/types/payment-provider';
 import {
@@ -18,14 +23,16 @@ import { DesignResponse, DesignRequest } from './api/types/design';
 export {
   PayrexxClient,
   PaylinkRequest,
-  GatewayRequest,
+  GatewayCreateRequest,
   QrCodeRequest,
   TransactionRequest,
   DesignRequest,
 };
 export type {
   PaylinkResponse,
-  GatewayResponse,
+  GatewayCreateResponse,
+  GatewayRetrieveResponse,
+  GatewayDeleteResponse,
   QrCodeResponse,
   PaymentProviderResponse,
   PaymentMethodResponse,

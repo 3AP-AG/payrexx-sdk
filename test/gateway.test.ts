@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest';
-import { GatewayRequest, PayrexxClient } from '../lib';
+import { GatewayCreateRequest, PayrexxClient } from '../lib';
 import clientConfig from './client-config';
 
 // THESE TEST ARE TO BE EXECUTED LOCALLY ONLY
@@ -19,11 +19,13 @@ describe('Gateway', () => {
   });
 
   test.skip('test create', async () => {
-    const params = new GatewayRequest(1000, 'CHF');
-    params.addField('forename', 'Test');
-    params.addField('surname', 'Test');
-    params.addField('date_of_birth', '2000-09-10');
-    params.addField('custom_field_1', 'Hej Hej', ['Test FR', 'Test DE']);
+    const params = new GatewayCreateRequest(1000, 'CHF');
+    params.setFields({
+      forename: { value: 'Test' },
+      surname: { value: 'Test' },
+      date_of_birth: { value: '2000-09-10' },
+      custom_field_1: { value: 'Hej Hej', name: ['Test FR', 'Test DE'] },
+    });
     params.addBasketItem(['ITEM'], 1, 1000, ['Some text']);
     const result = await client.api.gateway.create(params);
 
