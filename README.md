@@ -15,7 +15,7 @@ Supported **Payrexx API** functionalities:
 
 Unsupported **Payrexx API** functionalities:
 
-- **Subscription** API is still in experimental state on the Payrexx, hence it will not be supported by this library
+- **Subscription** API documentation is still in experimental state on the Payrexx, hence it will not be supported by this library (see: https://developers.payrexx.com/reference/create-a-new-subscription)
 
 ## API version compatibility
 
