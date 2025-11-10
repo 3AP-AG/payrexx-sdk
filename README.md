@@ -17,6 +17,12 @@ Unsupported **Payrexx API** functionalities:
 
 - **Subscription** API is still in experimental state on the Payrexx, hence it will not be supported by this library
 
+## API version compatibility
+
+This client library targets **Payrexx API version 1.11**.
+
+For Payrexx API v1.0, please use version **0.x.x** of this library.
+
 Visit the [Payrexx](https://payrexx.com/) for more information.
 
 ## Disclaimer 🚧
