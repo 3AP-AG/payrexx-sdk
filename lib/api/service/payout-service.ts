@@ -1,4 +1,4 @@
-import { Service } from '../../interface/service';
+import { Service } from '../interface/service';
 import { PayoutResponse, PayoutsResponse } from '../types/payout';
 
 export class PayoutService extends Service {

@@ -1,4 +1,4 @@
-import { Service } from '../../interface/service';
+import { Service } from '../interface/service';
 import { PaylinkRequest, PaylinkResponse } from '../types/paylink';
 
 export class PaylinkService extends Service {

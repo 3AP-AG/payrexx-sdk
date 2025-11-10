@@ -1,4 +1,4 @@
-import { Service } from '../../interface/service';
+import { Service } from '../interface/service';
 import { DesignRequest, DesignResponse } from '../types/design';
 
 export class DesignService extends Service {

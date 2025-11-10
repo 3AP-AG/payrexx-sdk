@@ -1,4 +1,4 @@
-import { Service } from '../../interface/service';
+import { Service } from '../interface/service';
 import { QrCodeRequest, QrCodeResponse } from '../types/qrcode';
 
 export class QrCodeService extends Service {
