@@ -11,7 +11,7 @@ export abstract class Service {
     endpoint: string,
   ) {
     this.authHelper = new AuthHelper(apiSecret);
-    this.baseUrl = `https://api.payrexx.com/v1.0/${endpoint}`;
+    this.baseUrl = `https://api.payrexx.com/v1.11/${endpoint}`;
   }
 
   protected async get<T extends Response>(path?: string): Promise<T> {
