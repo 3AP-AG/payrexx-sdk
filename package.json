@@ -20,20 +20,21 @@
   },
   "version": "1.0.0",
   "type": "module",
-  "main": "./dist/payrexx-sdk.umd.cjs",
-  "module": "./dist/payrexx-sdk.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/lib/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/payrexx-sdk.js",
-      "require": "./dist/payrexx-sdk.umd.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/lib/index.d.ts"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && tsc && vite build",
+    "build": "npx rimraf dist && tsc && vite build",
     "test": "vitest",
     "format": "prettier --write \"lib/**/*.ts\"",
     "format:check": "eslint ./lib && prettier --check ./lib",
