@@ -34,7 +34,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && tsc && vite build",
+    "build": "npx rimraf dist && tsc && vite build",
     "test": "vitest",
     "format": "prettier --write \"lib/**/*.ts\"",
     "format:check": "eslint ./lib && prettier --check ./lib",
