@@ -1,4 +1,4 @@
-import { Response } from '../../interface/response';
+import { Response } from '../interface/response';
 
 /**
  * Some properties are available only when doing GET and others when doing POST requests.

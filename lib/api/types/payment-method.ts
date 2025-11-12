@@ -1,4 +1,4 @@
-import { Response } from '../../interface/response';
+import { Response } from '../interface/response';
 
 interface PaymentMethodsResponse extends Response {
   data: PaymentMethodData[];

@@ -1,66 +1,121 @@
-import { Response } from '../../interface/response';
+import { Response } from '../interface/response';
 
-interface GatewayResponse extends Response {
-  data: GatewayData[];
+interface GatewayCreateResponse extends Response {
+  data: GatewayDataCreate[];
 }
 
-type GatewayData = {
+interface GatewayRetrieveResponse extends Response {
+  data: GatewayDataRetrieve[];
+}
+
+interface GatewayDeleteResponse extends Response {
+  data: GatewayDataDelete[];
+}
+
+type GatewayDataBase = {
   id: number;
   status: string;
   hash: string;
   referenceId: string;
   link: string;
   invoices: any[];
-  preAuthorization: boolean;
-  reservation: number;
-  fields: Partial<Record<FieldKey, ResponseField>>;
+  preAuthorization: number;
+  fields: GatewayResponseFields;
   psp: any[];
   pm: any[];
   amount: number;
+  vatRate: number;
   currency: string;
-  vatRate: string;
   sku: string;
-  aplicationFee: number;
   createdAt: number;
 };
 
-const fields = [
-  'title',
-  'forename',
-  'surname',
-  'company',
-  'street',
-  'postcode',
-  'place',
-  'country',
-  'phone',
-  'email',
-  'date_of_birth',
-  'terms',
-  'privacy_policy',
-  'text',
-  'custom_field_1',
-  'custom_field_2',
-  'custom_field_3',
-  'custom_field_4',
-  'custom_field_5',
-] as const;
+type GatewayDataCreate = GatewayDataBase & {
+  reservation: number;
+};
 
-type FieldKey = (typeof fields)[number];
+type GatewayDataRetrieve = GatewayDataBase & {
+  applicationFee: number;
+};
 
-type ResponseField = {
+type GatewayDataDelete = {
+  id: number;
+};
+
+type ResponseFieldBase = {
   active: boolean;
   mandatory: boolean;
+};
+
+type ResponseFieldWithNames = ResponseFieldBase & {
   names?: {
-    de: string;
-    fr: string;
+    de?: string;
+    en?: string;
+    fr?: string;
+    it?: string;
   };
+};
+
+type GatewayResponseFields = {
+  title?: ResponseFieldBase;
+  forename?: ResponseFieldBase;
+  surname?: ResponseFieldBase;
+  company?: ResponseFieldBase;
+  street?: ResponseFieldBase;
+  postcode?: ResponseFieldBase;
+  place?: ResponseFieldBase;
+  country?: ResponseFieldBase;
+  phone?: ResponseFieldBase;
+  email?: ResponseFieldBase;
+  date_of_birth?: ResponseFieldBase;
+  terms?: ResponseFieldBase;
+  privacy_policy?: ResponseFieldBase;
+  text?: ResponseFieldWithNames;
+};
+
+type RequestFieldValue = {
+  value: string;
+};
+
+type RequestFieldCustom = {
+  value: string;
+  name?: string[];
+  export_name?: string;
+};
+
+type GatewayRequestFields = {
+  title?: RequestFieldValue;
+  forename?: RequestFieldValue;
+  surname?: RequestFieldValue;
+  company?: RequestFieldValue;
+  street?: RequestFieldValue;
+  postcode?: RequestFieldValue;
+  place?: RequestFieldValue;
+  country?: RequestFieldValue;
+  delivery_title?: RequestFieldValue;
+  delivery_forename?: RequestFieldValue;
+  delivery_surname?: RequestFieldValue;
+  delivery_company?: RequestFieldValue;
+  delivery_street?: RequestFieldValue;
+  delivery_postcode?: RequestFieldValue;
+  delivery_place?: RequestFieldValue;
+  delivery_country?: RequestFieldValue;
+  phone?: RequestFieldValue;
+  email?: RequestFieldValue;
+  date_of_birth?: RequestFieldValue;
+  terms?: string;
+  privacy_policy?: string;
+  custom_field_1?: RequestFieldCustom;
+  custom_field_2?: RequestFieldCustom;
+  custom_field_3?: RequestFieldCustom;
+  custom_field_4?: RequestFieldCustom;
+  custom_field_5?: RequestFieldCustom;
 };
 
 /**
  * For detailed information visit https://developers.payrexx.com/reference/create-a-gateway
  */
-class GatewayRequest {
+class GatewayCreateRequest {
   private vatRate?: number;
   private sku?: string;
   private purpose?: string;
@@ -73,8 +128,9 @@ class GatewayRequest {
   private preAuthorization?: boolean;
   private reservation?: boolean;
   private referenceId?: string;
+  private fields?: GatewayRequestFields;
+  private language?: string;
   private concardisOrderId?: string;
-  private fields?: Partial<Record<FieldKey, RequestField>>;
   private skipResultPage?: boolean;
   private chargeOnAuthorization?: boolean;
   private validity?: number;
@@ -86,6 +142,9 @@ class GatewayRequest {
   private lookAndFeelProfile?: string;
   private successMessage?: string;
   private qrCodeSessionId?: string;
+  private applicationFee?: number;
+  private reserveOnAuthorization?: boolean;
+  private isPriceExclusiveVat?: boolean;
 
   /**
    * Gateway create request
@@ -274,6 +333,29 @@ class GatewayRequest {
     this.referenceId = referenceId;
   }
 
+  public getFields() {
+    return this.fields;
+  }
+
+  /**
+   * Set the contact data fields which should be stored along with payment
+   * @param fields The fields object
+   */
+  public setFields(fields: GatewayRequestFields) {
+    this.fields = fields;
+  }
+
+  public getLanguage() {
+    return this.language;
+  }
+
+  /**
+   * @param language The language ISO code by ISO 639-1
+   */
+  public setLanguage(language: string) {
+    this.language = language;
+  }
+
   public getConcardisOrderId() {
     return this.concardisOrderId;
   }
@@ -283,25 +365,6 @@ class GatewayRequest {
    */
   public setConcardisOrderId(concardisOrderId: string) {
     this.concardisOrderId = concardisOrderId;
-  }
-
-  public getFields() {
-    return this.fields;
-  }
-
-  /**
-   * The contact data fields which should be stored along with payment
-   * @param type The type of field
-   * @param value Value of the field
-   * @param name Name of the field
-   */
-  public addField(type: FieldKey, value: string, name?: string[]) {
-    const fields = { ...this.fields };
-    fields[type] = {
-      value,
-      name,
-    };
-    this.fields = { ...fields };
   }
 
   public getSkipResultPage() {
@@ -426,6 +489,39 @@ class GatewayRequest {
   public setQrCodeSessionId(qrCodeSessionId: string) {
     this.qrCodeSessionId = qrCodeSessionId;
   }
+
+  public getApplicationFee() {
+    return this.applicationFee;
+  }
+
+  /**
+   * @param applicationFee Amount in the smallest unit of the currency
+   */
+  public setApplicationFee(applicationFee: number) {
+    this.applicationFee = applicationFee;
+  }
+
+  public getReserveOnAuthorization() {
+    return this.reserveOnAuthorization;
+  }
+
+  /**
+   * @param reserveOnAuthorization preAuthorization needs to be "true". This will create a reservation based on an authorization during the first payment
+   */
+  public setReserveOnAuthorization(reserveOnAuthorization: boolean) {
+    this.reserveOnAuthorization = reserveOnAuthorization;
+  }
+
+  public getIsPriceExclusiveVat() {
+    return this.isPriceExclusiveVat;
+  }
+
+  /**
+   * @param isPriceExclusiveVat If set to true the vat will be added on top of amount
+   */
+  public setIsPriceExclusiveVat(isPriceExclusiveVat: boolean) {
+    this.isPriceExclusiveVat = isPriceExclusiveVat;
+  }
 }
 
 type BasketItem = {
@@ -436,11 +532,10 @@ type BasketItem = {
   vatRate?: number;
 };
 
-type RequestField = {
-  value: string;
-  name?: string[];
+export type {
+  GatewayCreateResponse,
+  GatewayRetrieveResponse,
+  GatewayDeleteResponse,
 };
 
-export type { GatewayResponse };
-
-export { GatewayRequest };
+export { GatewayCreateRequest };

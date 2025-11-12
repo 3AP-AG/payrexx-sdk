@@ -1,4 +1,4 @@
-import Api from './v1/api';
+import Api from './api';
 
 export class PayrexxClient {
   public readonly api: Api;
